@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>负载监控信息列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrame", {vLayout: [46, "auto",30]});
+</script>
+
+</head>
+<body onload="pageInit();" class="panels">
+	<div id="divPageFrame">
+   		<div class="panel-heading" >
+   				<span style="cursor: pointer; margin-right: 10px;" title="锁定"
+					onclick="lock()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;锁定</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="终止授权"
+					onclick="stop()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;终止授权</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="延长授权"
+					onclick="lengthen()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;延长授权</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="生成授权码"
+					onclick="anthorization()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;生成授权码</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="发送消息"
+					onclick="sendMsg()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;发送消息</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="超级锁"
+					onclick="superLock()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;超级锁</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="超级密码"
+					onclick="superPwd()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;超级密码</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="切换账号"
+					onclick="exchangeUser()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;切换账号</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="远程监控"
+					onclick="remoteDesktop()"> <i class="fa fa-plus"></i>
+					<span>&nbsp;远程监控</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="动态图表"
+					onclick="loadChart()"> <i class="fa fa-plus"></i>
+					<span>&nbsp;动态图表</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="进程列表"
+					onclick="loadProgress()"> <i class="fa fa-plus"></i>
+					<span>&nbsp;进程列表</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="刷新"
+					onclick="loadInfo();"> <i
+					class="fa fa-refresh"></i> <span>&nbsp;刷新</span>
+				</span>
+   		</div>
+   		<!-- 负载监控信息列表 -->
+   		<div  class="table-unbordered"  id= "ResConfirmList" ></div>
+   		<div  class="panel-footer" id="ResConfirmPageBar"></div>
+	</div>
+	
+	<div id="divAssign" style="height:580px;width:1200px; overflow: hidden; display: none;">
+		<iframe frameborder="0" id="iframeAssignMsg" name="iframeAssignMsg" scrolling="auto" 
+		style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%;"></iframe>
+    </div>
+	<!-- 折线统计图显示 -->
+    <div id="divChartLine" style="height:600px;width:1200px; overflow: hidden; display: none;">
+		<iframe frameborder="0" id="iframeChartLine" name="iframeChartLine" scrolling="auto" 
+		style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%;"></iframe>
+    </div>
+    <!-- 设备进程 -->
+    <div id="divProgress" style="height:600px;width:1200px; overflow: hidden; display: none;">
+		<iframe frameborder="0" id="iframeProgress" name="iframeProgress" scrolling="auto" 
+		style="z-index:1;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%;"></iframe>
+    </div>
+    <script type="text/javascript" src="javascript/loadMonitor.js"></script>
+    
+</body>

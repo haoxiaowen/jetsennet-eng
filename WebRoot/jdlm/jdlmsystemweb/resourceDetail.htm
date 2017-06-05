@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>资源出库单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="css/jetsenui.css" rel="stylesheet" type="text/css"/>
+<link href="css/jetsen.css" rel="stylesheet" type="text/css"/>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<style type="text/css">
+.td_class{
+    text-align:center;
+}
+</style>
+</head>
+<body onload="pageInit();">
+<div id="divContent">
+	<div>
+		<input class="btn btn-danger btn-sm" id="btnFormOut" value="保存" onclick="goParent()" type="button"/>
+	</div>
+      	 <div id="divLeft">
+        	<table class="table-info" style="padding: 1px" width="350px;margin:0 auto;" cellspacing="0" cellpadding="0">
+				<tbody>
+				<tr>
+					<td class="field-head">
+						领取人：
+					</td>
+					<td>
+						<input id="txt_OUT_USER_NAME" placeholder="必填项" onclick = "SelectPerson('1')" validatetype="NotEmpty" readonly="readonly" style="width:175px;height:33px;" type="text" validatetype="NotEmpty"/> 
+					</td>
+					<td class="field-head">
+						借用部门：
+					</td>
+					<td>
+					<input id="txt_OUT_DEPT_CODE" placeholder="必填项"  style="display:none;" type="text" validatetype="NotEmpty" readOnly/>
+						<input id="txt_OUT_DEPT_Name" placeholder="必填项" onclick = "sourceDepart()" style="width:175px;height:33px;" type="text" validatetype="NotEmpty" readOnly/>
+					</td>
+					<td class="field-head">
+						借用栏目：
+					</td>
+					<td>
+					<input id="txt_OUT_COLN_CODE" placeholder="必填项" style="display:none;" readonly="readonly" type="text" validatetype="NotEmpty"/>
+						<input id="txt_OUT_COLN_Name" onclick = "SelectColumn()" placeholder="必填项" style="width:175px;height:33px;" readonly="readonly" type="text" validatetype="NotEmpty"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="field-head">
+						出库时间：
+					</td>
+					<td>
+						<input readonly="readonly" validatetype="NotEmpty" style="width:175px;height:33px;" id="txt_OUT_CREATE_TIME" type="text"/>
+					</td>
+					<td class="field-head">
+						起借时间：
+					</td>
+					<td>
+						<input placeholder="必填项" style="width:175px;height:33px;" onchange="checkTime(this);" onclick="jetsennet.pickDate(this, true)" id="txt_OUT_START_TIME" type="text"/>
+					</td>
+					<td class="field-head">
+						归还时间：
+					</td>
+					<td>
+						<input id="txt_OUT_END_TIME"  placeholder="必填项" onchange="checkDate(this)" style="width:175px;height:33px;" type="text" onclick="jetsennet.pickDate(this, true)"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="field-head">
+						出库单号：
+					</td>
+					<td>
+					<input id="txt_ord_id" type="hidden"/>
+						<input id="txt_OUT_CODE" readonly="readonly" style="width:175px;height:33px;" value="1482455856762" type="text"/> 
+					</td>
+					
+					<td class="field-head">
+						出库单名称：
+					</td>
+					<td>
+						<input id="txt_OUT_NAME"  readonly="readonly" placeholder="必填项" style="width:175px;height:33px;" type="text"/>
+					</td>
+<!-- 					<td class="field-head"> -->
+<!-- 						领取人工号： -->
+<!-- 					</td> -->
+<!-- 					<td> -->
+<!-- <!-- 						<input  readonly="readonly" validatetype="NotEmpty" style="width:175px;height:33px;" onclick = "SelectPerson('1')" type="text"/> -->
+<!-- 					</td>id="txt_OUT_USER" -->
+					<td class="field-head">
+						出库类型：
+					</td>
+					<td style="text-align: center;">
+							<input id="txt_OUT_TYPE" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;width:175px;" type="text"/>
+					</td>
+					
+				</tr>		
+				<tr>
+					<td class="field-head">
+						库管人员：
+					</td>
+					<td style="text-align: center;">
+							<input id="txt_OUT_KEEPER" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;margin-left: -20px;" type="text"/>
+					</td>
+					<td class="field-head">
+           				 地点：
+			          </td>
+			          <td style="text-align: center;" colspan="3">
+			              <input id="txt_OUT_FIELD"   style="height:33px;width:90%" type="text"/>
+			          </td>
+<!-- 					<td class="field-head"> -->
+<!-- 						出库类型： -->
+<!-- 					</td> -->
+<!-- 					<td style="text-align: center;" colspan="3"> -->
+<!-- 							<input id="txt_OUT_TYPE" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;margin-left: -20px;" type="text"/> -->
+<!-- 					</td> -->
+				</tr>	
+				<tr rowspan="4">
+					<td class="field-head">
+						出库说明：
+					</td>
+					<td colspan="5">
+						 <textarea id="txt_OUT_DESC" style="width:715px;height:60px;"></textarea>
+					</td>
+				</tr>			
+			</tbody>
+        	</table>
+	  	 </div>
+	  	 <div id="divdetail"></div>
+	  	 <div id="divRigth">
+	  	 		<table class="table-info" id="resdemo" style="padding: 1px;border:none;display:none;visibility:hidden" width="808px" cellspacing="0" cellpadding="0">
+	  	 			<tbody class="divchukudan">
+	  	 			<tr>
+		  	 			<td class="field-head">
+							资源代码：
+						</td>
+						<td >
+							<input name="txt_ITEM_CODE" readonly="readonly" placeholder="必填项" style="height:33px;" type="text"/>
+						</td>
+						<td class="field-head" style="text-align:center;">
+							资源名称:
+						</td>
+						<td >
+							 <input name="txt_ITEM_NAME" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;" type="text"/>
+						</td>
+						<td class="field-head" style="text-align:center;">
+							使用天数:
+						</td>
+						<td >
+							 <input name="txt_ITEM_OBJ_UOM1" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;" type="text"/>
+						</td>
+	  	 			</tr>
+	  	 			<tr>
+		  	 			<td class="field-head" style="width: 65px;">
+							资源类型：
+						</td>
+						<td style="width:191px">
+							<input type="text" name="txt_OBJ_TYPE_NAME" style="display:none;"/>
+							<input name="txt_ITEM_OBJ_NAME" readonly="readonly" placeholder="必填项" style="height:33px;" type="text"/>
+						</td>
+						<td class="field-head" style="width: 77px;text-align:center;">
+							资源数量:
+						</td>
+						<td style="width: 192px;">
+							 <input name="txt_ITEM_OBJ_NUM" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;" type="text"/>
+						</td>
+						<td class="field-head" style="width: 77px;text-align:center;">
+							序列号:
+						</td>
+						<td style="width: 193px;">
+							 <input name="txt_ITEM_OBJ_CODE" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;" type="text"/>
+						</td>
+	  	 			</tr>
+	  	 			<tr>
+	  	 				<td class="field-head" style="width: 65px;">
+							验证码：
+						</td>
+						<td style="text-align: center;">
+							 <input name="txt_ITEM_MATH_CODE" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="height:33px;width:174px;" type="text"/>
+						</td>
+						<td class="field-head" style="text-align:center">
+           					配件栏：
+			            </td>
+			            <td style="text-align: center;" colspan="3">
+			             <input  name="txt_ITEM_FIELD" style="height:33px;width:90%" type="text"/>
+			            </td>
+	  	 			</tr>
+	  	 			</tbody>
+	  	 		</table>
+      	 </div>
+      </div>
+      <!-- 借用部门 -->
+      <div id="divPageFrame1" class="panel middle-panel panel-sm" style="display:none;">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input class="form-control" id="name" onkeydown="jetsennet.keyEvent(searchName)" placeholder="部门名称" type="text"/>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default" onclick="javascript:searchName();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> 
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divSourceCodeList" style="height:285px"></div>
+		<div class="panel-footer" id="divSourceCodePage"></div>
+	</div>
+	
+	  <!-- 借用栏目 -->
+      <div id="divPageFrame2" class="panel middle-panel panel-sm" style="display:none;">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input class="form-control" id="name" onkeydown="jetsennet.keyEvent(searchcolumn)" placeholder="栏目名称" type="text"/>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default" onclick="javascript:searchcolumn();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> 
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divSourceColumnList" style="height:285px"></div>
+		<div class="panel-footer" id="divSourceColumnPage"></div>
+	</div>
+	
+	 <!-- 用户 -->
+      <div id="divPageFrame4" class="panel middle-panel panel-sm" style="display:none;">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input class="form-control" id="user" onkeydown="jetsennet.keyEvent(searchuser)" placeholder="用户名" type="text"/>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default" onclick="javascript:searchuser();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> 
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divSourceuserList" style="height:285px"></div>
+		<div class="panel-footer" id="divSourceuserPage"></div>
+	</div>
+	
+	<div id="divPageFrame3" class="panel middle-panel panel-sm" style="display:none;">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input class="form-control" id="OBJ_TYPE_CODE" onkeydown="jetsennet.keyEvent(searchTypeCode)" placeholder="资源编码" type="text"/>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default" onclick="javascript:searchTypeCode();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> 
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divTypeList" style="height:255px"></div>
+		<div class="panel-footer" id="divTypePage"></div>
+	</div>
+<script type="text/javascript" src="javascript/resourceDetail.js"></script> 
+</body>
+</html>

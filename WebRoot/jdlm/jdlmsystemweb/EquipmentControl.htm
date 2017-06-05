@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>设备管控信息</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrame", {vLayout: [46, "auto",30]});
+</script>
+
+</head>
+<body onload="pageInit();" class="panels">
+	<div id="divPageFrame">
+   		<div class="panel-heading" style="padding-left: 890px;">
+   				<span style="cursor: pointer; margin-right: 10px;" title="锁定"
+					onclick="lock()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;锁定</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="终止授权"
+					onclick="stop()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;终止授权</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="延长授权"
+					onclick="lengthen()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;延长授权</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="生成授权码"
+					onclick="anthorization()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;生成授权码</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="远程监控"
+					onclick="longDistance()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;远程监控</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="消息发送"
+					onclick="news()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;消息发送</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="查看管控"
+					onclick="control()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;查看管控</span>
+				</span>
+				<span style="cursor: pointer; margin-right: 10px;" title="刷新"
+					onclick="pageInit();"> <i
+					class="fa fa-refresh"></i> <span>&nbsp;刷新</span>
+				</span>
+   		</div>
+   		
+   		<!-- 负载监控信息列表 -->
+   		<div  class="table-unbordered"  id= "ResConfirmList" ></div>
+   		<div  class="panel-footer" id="ResConfirmPageBar"></div>
+	</div>
+	
+    <script type="text/javascript" src="javascript/EquipmentControl.js"></script>
+    
+</body>

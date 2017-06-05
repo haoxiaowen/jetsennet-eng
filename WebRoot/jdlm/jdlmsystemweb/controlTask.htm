@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>监控任务列表</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrame", {vLayout: [46, "auto",30]});
+</script>
+
+</head>
+<body onload="pageInit();" class="panels">
+	<div id="divPageFrame">
+   		<div class="panel-heading" >
+   			<div class="input-group input-group-xs pull-left input7">
+            	<form class="form-inline margin-bottom-sm">
+			      <span class="margin-left-md">输入关键字:</span>
+					<div class="input-group">
+						<input class="input-group-sm search" type="text" id="log_time" style="width:270px" />
+					</div>
+			      <button type="button" class="btn btn-primary btn-xs" onclick="searchConfirm();">
+			        <span class="glyphicon glyphicon-search"></span> 查询
+			      </button>
+			      
+			      <div class="pull-right" style=" display: inline-block;padding-left:350px;">
+			      <span style="cursor: pointer; margin-right: 10px;" title="生成授权码"
+					onclick="anthorization()"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;生成授权码</span>
+				  </span>
+				  <span style="cursor: pointer; margin-right: 10px;" title="设备定位"
+					onclick="getPosition()"> <i class="fa fa-plus"></i>
+					<span>&nbsp;设备定位</span>
+				  </span>
+			      <span style="cursor:pointer;margin-right: 10px;" title="执行" onclick="execute();">
+		          <i class="fa fa-pencil-square-o"></i>
+		          <span>&nbsp;执行</span>
+		          </span>
+			      <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="gCrud.add();">
+		          <i class="fa fa-plus"></i>
+		          <span>&nbsp;新建</span>
+		          </span>
+		          <span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="gCrud.remove();">
+		          <i class="fa fa-times"></i>
+		          <span>&nbsp;删除</span>
+		          </span>
+		          <span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="gCrud.edit();">
+            	  <i class="fa fa-pencil-square-o"></i>
+		          <span>&nbsp;编辑</span>
+		          </span> 
+			      <span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload();">
+		          <i class="fa fa-refresh"></i>
+		          <span>&nbsp;刷新</span>
+		          </span>
+		          </div>
+		          
+		    	</form>
+   			</div>
+   		</div>
+   		<!-- 监控管理列表展现数据 -->
+   		<div  class="table-unbordered"  id= "ResConfirmList" ></div>
+   		<div  class="panel-footer" id="ResConfirmPageBar"></div>
+    </div>
+    <script type="text/javascript" src="javascript/controlTask.js"></script>
+    
+    <!-- 新增，编辑用户开始  -->
+    <div style="display: none" id="addcontrol">
+    	<form class="form-horizontal mg-lg">
+    		<div class="form-group">
+    			<label for="txt_TASK_NAME" class="col-sm-2 control-label">资源名称:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" onclick="showUserInfo()" class="form-control" id="txt_TASK_NAME" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			   	</div>
+			    
+			    <label for="txt_TASK_CODE" class="col-sm-2 control-label">分配资源代码:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control" id="txt_TASK_CODE" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			    </div>
+    		</div>
+    		
+    		<div class="form-group">
+    			<label for="txt_TASK_TYPE" class="col-sm-2 control-label">资源类型:</label>
+    			<div class="col-sm-4">
+			        <select id="txt_TASK_TYPE" default="" class="form-control input-sm">
+	                <option value="" selected="selected">--请选择--</option>
+	                <!-- <option value="1">设备禁用</option> -->
+	                <option value="2">切换账户</option>
+	                <option value="3">终止授权</option>
+	                <!-- <option value="4">延长授权</option> -->
+	                <option value="5">消息发送</option>
+	                <!-- <option value="6">远程监看</option>
+	                <option value="7">远程接管</option> -->
+	              </select>
+			    </div>
+			    
+			    <label for="txt_TASK_STATUS" class="col-sm-2 control-label">资源状态:</label>
+	            <div class="col-sm-4">
+	              <select id="txt_TASK_STATUS" default="1" class="form-control input-sm">
+	                <option value="1">待执行</option>
+	                <!-- <option value="2">执行中</option> -->
+	                <option value="3">执行完成</option>
+	                <option value="4">执行失败</option>
+	                <!-- <option value="5">执行终止</option> -->
+	              </select>
+	            </div>
+    		</div>
+    		
+    		<div class="form-group">
+    			<!-- <label for="txt_TASK_CREATE_USER" class="col-sm-2 control-label">创建人员:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control" id="txt_TASK_CREATE_USER" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			    </div> -->
+			    
+			    <!-- <label for="txt_TASK_CREATE_TIME" class="col-sm-2 control-label">创建时间:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control selectdate" onclick="jetsennet.pickDate(this, true)" id="txt_TASK_CREATE_TIME" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			    </div> -->
+    		</div>
+    		
+    		<!-- <div class="form-group">
+    			<label for="txt_TASK_EXPIRE_TIME" class="col-sm-2 control-label">到期时间:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control selectdate" onclick="jetsennet.pickDate(this, true)" id="txt_TASK_EXPIRE_TIME" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			   </div>
+    		</div> -->
+    		
+    		<div class="form-group">
+            	<label for="txt_TASK_DESC" class="col-sm-2 control-label">申请描述:</label>
+            	<div class="col-sm-10">
+              	<textarea id="txt_TASK_DESC" class="form-control" rows="3"></textarea>
+            	</div>
+          	</div>
+    		
+    		<div class="form-group">
+            	<label for="txt_TASK_REMARK" class="col-sm-2 control-label">任务备注:</label>
+            	<div class="col-sm-10">
+              	<textarea id="txt_TASK_REMARK" class="form-control" rows="3"></textarea>
+            	</div>
+          	</div>
+    	</form>
+    </div>
+    
+   <!--  添加点击弹框数据 -->
+    <div class="panels" id="editMyInfoDialog">
+    	<div  class="table-unbordered"  id= "objList" style="height:208px"></div>
+   		<div  class="panel-footer" id="objListPage"></div>
+    </div>
+    
+    <!--执行中 -->
+	<div id="busyDiv" style="display:none;text-align:center;height:50px;"><img src="images/busy.gif"/></div>
+
+</body>

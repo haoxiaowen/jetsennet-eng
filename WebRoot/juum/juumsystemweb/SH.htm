@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>审核</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrame", {hLayout:[{vLayout: [46, "auto", 40]}]});
+</script>
+
+</head>
+<body onload="pageInit();" class="panels">
+	<div id="divPageFrame" class="panels" style="overflow: hidden;">
+   		<div class="panel-heading" >
+   			<div class="input-group input-group-xs pull-left input7">
+            	<form class="form-inline margin-bottom-sm">
+			      <span class="margin-left-md">计划时间:</span>
+					<div class="input-group">
+						<input class="input-group-sm search" type="text" id="log_time" style="width:270px" />
+					</div>
+			      <button type="button" class="btn btn-primary btn-xs" onclick="searchConfirm();">
+			        <span class="glyphicon glyphicon-search"></span> 查询
+			      </button>
+			      <span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload();">
+		          <i class="fa fa-refresh"></i>
+		          <span>&nbsp;刷新</span>
+		        </span> 
+		    	</form>
+   			</div>
+   		</div>
+   		<!-- 数据 -->
+   		<div  class="table-unbordered"  id= "ResConfirmList" style="border:2px solid red"></div>
+   		<div  class="panel-footer" id="ResConfirmPageBar"></div>
+    </div>
+    <script type="text/javascript" src="javascript/SH.js"></script>  
+</body>

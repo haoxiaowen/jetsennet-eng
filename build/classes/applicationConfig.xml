@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://cxf.apache.org/jaxrs
+	http://cxf.apache.org/schemas/jaxrs.xsd 
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd">
+	
+	<!-- 实体类加载 -->
+	<bean id="baseClassLoader" class="jetsennet.frame.dataaccess.BaseClassLoader">
+		<property name="packageNames">
+			<list>
+				<value>jetsennet.jsystem.schema</value>
+				<value>jetsennet.juum.schema</value>
+				<value>jetsennet.jue2.beans</value>
+				<value>jetsennet.jdlm.beans</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 資源文件配置 -->
+	<bean id="propertyConfig" class="jetsennet.util.SpringContextUtil">
+		<property name="locations">
+			<list>
+				<value>classpath:/config.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 通用数据库连接配置 -->
+	<bean id="defaultDBBuilderProp" class="jetsennet.orm.configuration.ConfigurationBuilderProp">
+		<constructor-arg value="/dbconfig.properties" />
+	</bean>
+	
+	
+	<!-- web框架 -->
+	<import resource="classpath:/frame-service.xml" />
+	<!-- jsystem -->
+	<import resource="classpath:/system-service.xml" />
+	<!-- uum -->
+	<import resource="classpath:/uum-service.xml" />
+	<!-- jppn-->
+	<import resource="classpath:/jppn-service.xml" />
+</beans>

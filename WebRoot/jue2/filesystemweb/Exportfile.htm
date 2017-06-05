@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>成品文件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript" src="javascript/Exportfile.js"></script>  
+
+
+<script type="text/javascript">
+	Layoutit("#divPageFrame", {vLayout: [46, "auto"]});
+	
+	
+	
+
+</script>
+
+</head>
+<body onload="pageInit();" class="panels">
+
+
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+  
+    <div class="panel-heading">
+   	  <div class="pull-left input2" id="divNavigation"></div>
+              <div class='btn-group btn-group-sm pull-left' >
+			     文件类型:<select id="txt_GROUP_TYPE"  style="width:100px;" disabled="disabled">
+			                <option value="">所有文件</option>
+							<option value="1">素材</option>
+							<option value="2">成品</option>
+					 </select>
+					<!--  
+				源系统:<select id="txt_GROUP_SOURCE" default="2" style="width:100px;">
+							<option value="0">自建</option>
+							<option value="2" selected="selected">外岛推送</option>
+					 </select>
+					-->
+			 时间区间：
+				     <input type="text" class="selectdate" onclick="jetsennet.pickDate(this)" id="txtStartDate" class="selectdate" readonly />至
+		<input type="text" class="selectdate" onclick="jetsennet.pickDate(this)" id="txtEndDate" class="selectdate" readonly />
+				     
+				     </div>
+				     <div style="float:left">
+				     &nbsp;&nbsp;&nbsp;&nbsp;
+			           <button type="button" id="new" class="btn btn-primary btn-sm"
+						onClick="searchfile();">
+						<span class="glyphicon glyphicon-add" padding-top="1px" ></span>查 询
+					</button>&nbsp;&nbsp;
+				</div>
+				 <div style="float:left">
+				     <button type="button" id="new" class="btn btn-primary btn-sm"
+						onClick="exportExcel();">
+						<span class="glyphicon glyphicon-add" padding-top="1px" ></span>导 出excel
+					</button>
+					&nbsp;&nbsp;
+				</div>
+				<div style="float:left">
+				    <button type="button" id="new" class="btn btn-primary btn-sm"
+						onClick="tjExcel();">
+						<span class="glyphicon glyphicon-add" padding-top="1px" ></span>统计信息
+					</button>
+				</div>
+		</div>       
+    <div class="table-unbordered" id= "divContent">数据加载中...</div>
+     <div class="panel-footer" id="divPage"></div>
+     
+    <div id="divshow" style="width:100%; height:100%; display:none">
+  		<iframe frameborder="0" id="iframePopWin" name="iframePopWin" scrolling="auto" 
+			style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%"></iframe>
+	</div>	
+</div>
+</body>
+</html>

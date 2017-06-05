@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Packaging Generator" default="_packaging_generation_">
+<target name="_packaging_generation_" depends="N65540"/>
+<target name="N65540"  description="JDVN.war">
+	<mkdir dir="dist"/>
+	<delete file="${basedir}/dist/JDVN.war" />
+	<war warfile="${basedir}/dist/JDVN.war">
+	    <fileset dir="${war.target.dir}">
+	    	<exclude name="**/.svn/*"/>
+	    </fileset>
+	</war>
+</target>
+</project>

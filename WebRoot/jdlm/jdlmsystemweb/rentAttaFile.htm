@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>附件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrame", {vLayout: [46, "auto", 40]});
+</script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="../../jetsenclient/javascript/bootstrap/html5shiv.min.js"></script> 
+  <script src="../../jetsenclient/javascript/bootstrap/respond.min.js"></script> 
+<![endif]-->
+
+<style type="text/css">
+#segFrame {font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;   width:100%;    border-collapse:collapse;}
+#segFrame td, #segFrame th    {    font-size:1em;    border:1px solid #98bf21;   padding:3px 7px 2px 7px;}
+#segFrame th    {    font-size:1.1em;   text-align:left;   padding-top:5px;   padding-bottom:4px;    background-color:#A7C942;   color:#ffffff;   }   #segFrame tr.alt td    {    color:#000000;    background-color:#EAF2D3;}
+</style>
+</head>
+
+<body onload="pageInit();" class="panels">
+
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+  
+    <div class="panel-heading">
+    	<div class="form-group pull-left">
+	      <div class="input-group input-group-xs input3">
+          <!--   <input type="text" class="form-control" id="txt_DESC" onkeydown="jetsennet.keyEvent(searchUom)" placeholder="">
+	           <span class="input-group-btn">
+	             <button type="submit" class="btn btn-default" onclick="javascript:searchUom();">
+	               <span class="glyphicon glyphicon-search"></span>
+	             </button>
+	           </span>
+	         </input> -->
+	      </div>
+      	</div>
+      
+      <div class='btn-group btn-group-sm pull-right'>
+        <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="gCrud.add();">
+          <i class="fa fa-plus"></i>
+          <span>&nbsp;新建</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="gCrud.edit();">
+          	  <i class="fa fa-pencil-square-o"></i>
+          <span>&nbsp;编辑</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="gCrud.remove();">
+          <i class="fa fa-times"></i>
+          <span>&nbsp;删除</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload();">
+          <i class="fa fa-refresh"></i>
+          <span>&nbsp;刷新</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="table-unbordered" id= "divRentFileList">数据加载中...</div>
+    
+    <div class="panel-footer" id="divRentFilePage"></div>
+</div>
+<!-- 新增、编辑功能开始 -->
+  <div id="divRentFile" style="display: none;">
+    <form class="form-horizontal mg-lg">
+      <div class="form-group">
+        <label for="FILE_STYLE" class="col-sm-2  control-label" >文件性质:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+            <select id="FILE_STYLE"  class="form-control input-sm" onchange="onchageSelect()">
+                <option value="" selected="selected">请选择</option>
+                <option value="1">申请单附件</option>
+                <option value="2">出库单附件</option>
+                <option value="3">入库单附件</option>
+                    
+                 </select>
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+          <label for=UOM_CODE class="col-sm-2  control-label" id="code">出库单号:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+         
+             <select id="text_code"  class="form-control input-sm" >
+                <option value="" selected="selected">请选择</option>                   
+                 </select>
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+        
+      </div>
+         <div class="form-group">
+        <label for=ATTA_TYPE class="col-sm-2  control-label" >附件类型:</label>
+        <div class="col-sm-10">
+          <div class="input-group input-group-sm">
+            <select id="ATTA_TYPE" class="form-control input-sm">
+                <option value="" selected="selected">请选择</option>              
+                <option value="1">证件照</option>
+                <option value="2">外观照</option>
+                <option value="3">规格照</option> 
+                <option value="0">其他</option>                    
+                 </select>
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+      </div>
+      
+         <div class="form-group">
+            <label for="FILE_DESC" class="col-sm-2 control-label">文件说明:</label>
+            <div class="col-sm-10">
+            <div class="input-group input-group-sm">
+              <textarea id="FILE_DESC" class="form-control" rows="4" style="height:100px" validatetype="NotEmpty"></textarea>
+              <span class="input-group-addon" style="color: Red;height:100px">*</span>
+            </div>           
+          </div>
+          </div>
+          
+          	<div class="form-group" id="chooseFile">
+				<label for="txt_FILE_LOC_PATH" class="col-sm-2 control-label">选择文件:</label>
+				<div class="col-sm-2" >
+					<input value="选择文件" type="button" onclick="OpenFileDialog();"
+						style="width: 90px" />
+				</div>
+			</div>
+			
+	
+        
+
+    </form>
+    	<div  id ="divsegFrame" style="margin-left:20px;">
+		<table id="segFrame" >
+              <tr>
+                <th  align="center">序号</th>
+                <th  align="center" style="width:125px" >文件名称</th>
+                <th align="center" style="width:125px">主机</th>
+                <th  align="center" style="width:200px">位置</th>
+                <th align="center">大小</th>
+                <th  align="center">操作</th>
+              </tr>
+        </table>
+         
+   </div>
+  </div>
+   <input name="txtTRLastIndex" type="hidden" id="txtTRLastIndex" value="1" />
+  <!-- 对象类型div  --> 
+  <div id="divRentObjType" style="display: none;height:100%;">
+    <div id="divRentObjTypeList" style="height:100%;"></div>
+  </div>
+<script type="text/javascript" src="javascript/rentAttaFile.js"></script> 
+<object id="dvnclient" name="dvnclient" classid="clsid:3066CF1D-8B8C-4482-8BF2-A0A22878EB41" type="application/x-oleobject" viewastext="viewastext"></object> 
+</body>
+</html>

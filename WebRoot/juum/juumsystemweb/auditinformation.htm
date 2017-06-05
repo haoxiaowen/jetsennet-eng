@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>审核</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrame", {vLayout: [46, "auto",30]});
+</script>
+
+</head>
+<body>
+<div>
+	<div id="divPageFrame">
+   		<div class="panel-heading" >
+   			<div class="input-group input-group-xs pull-left input7">
+            	<form class="form-inline margin-bottom-sm">
+			      <span class="margin-left-md">输入关键字:</span>
+					<div class="input-group">
+						<input class="input-group-sm search" type="text" id="log_time" style="width:270px" />
+					</div>
+			      <button type="button" class="btn btn-primary btn-xs" onclick="searchConfirm();">
+			        <span class="glyphicon glyphicon-search"></span> 查询
+			      </button>
+			      
+			      <div class="pull-right" style=" display: inline-block;padding-left:830px;">
+			      <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="gCrud.add();">
+		          <i class="fa fa-plus"></i>
+		          <span>&nbsp;新建</span>
+		          </span>
+		          <span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="gCrud.remove();">
+		          <i class="fa fa-times"></i>
+		          <span>&nbsp;删除</span>
+		          </span>
+		          <span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="gCrud.edit();">
+            	  <i class="fa fa-pencil-square-o"></i>
+		          <span>&nbsp;编辑</span>
+		          </span> 
+			      <span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload();">
+		          <i class="fa fa-refresh"></i>
+		          <span>&nbsp;刷新</span>
+		          </span>
+		          </div>
+		          
+		    	</form>
+   			</div>
+   		</div>
+   		<!-- 审核列表展现数据 -->
+   		<div  class="table-unbordered"  id= "ResConfirmList" ></div>
+   		<div  class="panel-footer" id="ResConfirmPageBar"></div>
+    </div>
+    <script type="text/javascript" src="javascript/audit.js"></script>
+    
+	<!-- 审核信息  -->
+   <div style="width: 900px;height: 100px; padding-left: 250px;" align="center">
+   		<form class="form-horizontal mg-lg" style="background-color: #778899 ; padding-top: 20px; padding-bottom: 10px; padding-right: 20px;">
+   			<div class="form-group">
+    			<label for="txt_CHECK_OBJ_CODE" class="col-sm-2 control-label">审核结果:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control" id="txt_CHECK_OBJ_CODE" validatetype="NotEmpty"/> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			   	</div>
+    		</div>
+    		
+    		<div class="form-group" >
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <label for="txt_CHECK_OBJ_CODE" style="padding-left: 7px;">审核结果:</label>
+			           <label style="padding-left: 10px;"><input type="radio" value="1" name="CHECK_OBJ_CODE" id="txt_CHECK_OBJ_CODE" validatetype="NotEmpty" checked="checked">通过</input></label>
+			           <label style="padding-left: 10px;"><input type="radio" value="0" name="CHECK_OBJ_CODE" id="txt_CHECK_OBJ_CODE" validatetype="NotEmpty">不通过</input></label> 
+			        </div>
+			   	</div>
+		    </div>
+    		
+    		<div class="form-group">
+            	<label for="txt_CHECK_RESULT_DESC" class="col-sm-2 control-label">审核意见:</label>
+            	<div class="col-sm-10">
+              	<textarea id="txt_CHECK_RESULT_DESC" class="form-control" rows="4"></textarea>
+            	</div>
+    		</div>
+    		
+    		<div class="form-group">
+    			<label for="txt_CHECK_OBJ_CODE" class="col-sm-2 control-label">审核备注:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control" id="txt_CHECK_OBJ_CODE" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			   	</div>
+    		</div>
+    		
+    		<div class="form-group">
+    			<label for="txt_CHECK_OBJ_CODE" class="col-sm-2 control-label">审核人员:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control" id="txt_CHECK_OBJ_CODE" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			   	</div>
+			    
+			    <label for="txt_CHECK_USER" class="col-sm-2 control-label">审核时间:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control" id="txt_CHECK_USER" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			    </div>
+    		</div>
+    		
+    		<div class="form-group">
+    			<label for="txt_CHECK_OBJ_CODE" class="col-sm-2 control-label">审核级别:</label>
+    			<div class="col-sm-4">
+			        <div class="input-group input-group-sm">
+			           <input type="text" class="form-control" id="txt_CHECK_OBJ_CODE" validatetype="NotEmpty" /> 
+			           <span class="input-group-addon" style="color: Red">*</span>
+			        </div>
+			   	</div>
+    		</div>
+    		
+    		<div class="form-group" style="padding-left: 450px;">
+    			<div>
+    				<input type="submit" value="确定"/>
+    				<input type="submit" value="取消"/>
+    			</div>
+    		</div>
+   		</form>
+   </div>
+   
+</div>
+</body>

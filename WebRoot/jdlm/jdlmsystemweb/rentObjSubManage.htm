@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript"> 
+Layoutit("#divPageFrame", {vLayout: [46, "auto", 40]});
+</script>
+<title>Insert title here</title>
+</head>
+<body onload="pageInit();" class="panels">
+	<div id="divPageFrame" class="panel middle-panel panel-sm">
+
+		<div class="panel-heading">
+			<div class="form-group pull-left">
+				<div class="input-group input-group-xs input3">
+					<input type="text" class="form-control" id="txtGoodsCode"
+						onkeydown="jetsennet.keyEvent(searchGoods)" placeholder="对象编码">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-default"
+							onclick="javascript:searchGoods();">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span> </input>
+				</div>
+			</div>
+
+			<div class='btn-group btn-group-sm pull-right'>
+				<span style="cursor: pointer; margin-right: 10px;" title="新建"
+					onclick="gObjCrud.adds();"> <i class="fa fa-plus"></i> <span>&nbsp;新建</span>
+				</span> <!-- <span style="cursor: pointer; margin-right: 10px;" title="编辑"
+					onclick="gCrud.edits();"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;编辑</span>
+				</span> --> <span style="cursor: pointer; margin-right: 10px;" title="删除"
+					onclick="gCrud.removes();"> <i class="fa fa-times"></i> <span>&nbsp;删除</span>
+				</span> <span style="cursor: pointer; margin-right: 10px;" title="刷新"
+					onclick="pageInit();"> <i
+					class="fa fa-refresh"></i> <span>&nbsp;刷新</span>
+				</span>
+			</div>
+		</div>
+		<div class="table-unbordered" id="divGoodsList"></div>
+		<div class="panel-footer" id="divGoodsPage"></div>
+	</div>
+	<!-- 新增，编辑开始  -->
+	<div id="divPageFrame2" class="panel middle-panel panel-sm">
+		<div class="panel-heading">
+			<div class="form-group left">
+				<div class="input-group input-group-xs input3">
+					<input type="text" class="form-control" id="txtObjCode"
+						onkeydown="jetsennet.keyEvent(searchObjDia)" placeholder="对象编码">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-default"
+							onclick="javascript:searchObjDia();">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span> </input>
+				</div>
+			</div>
+		</div>	
+		<div class="table-unbordered" id="divObjDesc" style = "height:300px"></div>
+		<div class="panel-footer" id="divObjPage"></div>
+	</div> 
+	
+	<script type="text/javascript" src="javascript/rentObjSubManage.js"></script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<title>维保单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<link href="css/jetsenui.css" rel="stylesheet" type="text/css"/>
+<link href="css/jetsen.css" rel="stylesheet" type="text/css"/>
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+
+<style type="text/css">
+.td_class{
+    text-align:center;
+}
+</style>
+</head>
+<body onload="pageInit();">
+<div id="divContent">
+	<div>
+		<input class="btn btn-danger btn-sm" id="btnFormOut" value="保存" onclick="goParent()" type="button"/>
+	</div>
+      	 <div id="divLeft">
+        	<table class="table-info" style="padding: 1px" width="350px" cellspacing="0" cellpadding="0">
+				<tbody>
+				<tr>
+					<td class="field-head">
+						维保单号：
+					</td>
+					<td>
+						<input id="MAINT_CODE" placeholder="必填项" validatetype="NotEmpty" style="width:175px;height:33px;" type="text"/> 
+					</td>
+					<td class="field-head">
+						维保类型：
+					</td>
+					<td>
+					<select id="MAINT_TYPE" default="1" class="form-control input-sm">
+							<option value="1" selected="selected">保养</option>
+							<option value="2">维修</option>
+						</select> 
+						
+					</td>
+					<td class="field-head">
+						维修状态：
+					</td>
+					<td>
+						<select id="MAINT_STATUS" default="0"
+							class="form-control input-sm">
+							<option value="0" selected="selected">待维保</option>
+							<option value="1">维保中</option>
+							<option value="2">已结束</option>
+							</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="field-head">
+						申请时间：
+					</td>
+					<td>
+						
+						<input placeholder="必填项" style="width:175px;height:33px;"  onclick="jetsennet.pickDate(this, true)" id="MAINT_REQ_TIME" type="text" readonly/>
+					</td>
+					<td class="field-head">
+						申请人员：
+					</td>
+					<td>
+						<input id="MAINT_REQ_USER"  onclick="selectUser()" placeholder="必填项" validatetype="NotEmpty" readonly="readonly" style="width:175px;height:33px;" type="text"/> 
+					</td>
+					<td class="field-head">
+						申请人电话：
+					</td>
+					<td>
+						<input id="MAINT_REQ_USER_TEL" validatetype="NotEmpty" style="width:175px;height:33px;" type="text"/> 
+					</td>
+					</td>
+				</tr>
+				<tr>
+					<td class="field-head">
+					申请单位名称：
+					</td>
+					<td>
+					<input id="txt_ord_id" type="hidden"/>
+						<input id="MAINT_REQ_UNIT_NAME"  style="width:175px;height:33px;"  type="text"/> 
+					</td>
+					
+					<td class="field-head">
+						申请原因：
+					</td>
+					<td>
+						<input id="MAINT_REASON"  placeholder="必填项"  style="width:175px;height:33px;" type="text"/>
+					</td>
+					<td class="field-head">
+						完成时间：
+					</td>
+					<td>
+						<input placeholder="必填项" style="width:175px;height:33px;"  onclick="jetsennet.pickDate(this, true)" id="MAINT_END_TIME" type="text" readonly/>
+					</td>
+				</tr>		
+			
+			<tr>
+					<td class="field-head">
+					维保意见：
+					</td>
+					<td>
+					<input id="txt_ord_id" type="hidden"/>
+						<input id="MAINT_DESC"  style="width:175px;height:33px;"  type="text"/> 
+					</td>
+					
+					<td class="field-head">
+						维保人员：
+					</td>
+					<td>
+						<input id="MAINT_DEAL_USER"  onclick="getDealUser()" placeholder="必填项" style="width:175px;height:33px;" type="text" readonly/>
+					</td>
+					
+				</tr>		
+				
+						
+			</tbody>
+        	</table>
+	  	 </div>
+	  	 <div id="divdetail"></div>
+	  	 <div id="divRigth">
+	  	 		<table class="table-info" id="resdemo" style="padding: 1px;border:none;display:none;visibility:hidden" width="808px" cellspacing="0" cellpadding="0">
+	  	 			<tbody class="divchukudan">
+	  	 			<tr>
+		  	 			<td class="field-head" style="width: 89px;">
+							资源代码：
+						</td>
+						<td >
+							<input name="txt_OBJ_CODE" readonly="readonly" placeholder="必填项" style="width:175px;height:33px;"type="text"/>
+						</td>
+						<td class="field-head" style="text-align:center; width: 65px;">
+							资源名称:
+						</td>
+						<td >
+							 <input name="txt_OBJ_NAME" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="width:175px;height:33px;" type="text"/>
+						</td>
+						<td class="field-head" style="text-align:center; width: 77px;">
+							资源类型:
+						</td>
+						<td >
+							 <input name="txt_OBJ_TYPE_NAME" placeholder="必填项" readonly="readonly" validatetype="NotEmpty" style="width:175px;height:33px;"type="text"/>
+						</td>
+	  	 			</tr>
+	  	 		
+	  	 			</tbody>
+	  	 		</table>
+      	 </div>
+      </div>
+     
+	<!-- 用户div -->
+	 <div id="divSelectUser" style="display: none">
+  	<div>
+	  	<div class="center-wrapper">
+			<div class="center-area">
+			    <form class="form-inline mg-sm">
+			      <span>用户姓名:</span>
+			      <div class="form-group">
+			        <input id="txtUserName" type="text" class="form-control input-xs" style="width: 120px;"/>
+			      </div>
+			      <span class="margin-left-md">登录名称:</span>
+			      <div class="form-group">
+			        <input id="txtLoginName" type="text" class="form-control input-xs" style="width: 120px;" />
+			      </div>
+			      <button type="button" class="btn btn-primary btn-xs" style="margin-left: 10px;"  onclick="searchSelectUserData();">
+			        <span class="glyphicon glyphicon-search"></span> 查询
+			      </button>
+			    </form>
+			</div>
+		</div>			 
+	</div>
+    <div id="divSelectUserList">数据正在加载...</div>
+    <div id="divSelectUserPage" style="padding-top: 5px;"></div>
+  </div> 
+	
+	<div id="divPageFrame3" class="panel middle-panel panel-sm" style="display:none;">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input class="form-control" id="OBJ_TYPE_CODE" onkeydown="jetsennet.keyEvent(searchTypeCode)" placeholder="资源编码" type="text"/>
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default" onclick="javascript:searchTypeCode();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> 
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divTypeList" style="height:255px"></div>
+		<div class="panel-footer" id="divTypePage"></div>
+	</div>
+	
+
+
+<script type="text/javascript" src="javascript/devMaintIframe.js"></script> 
+</body>
+</html>

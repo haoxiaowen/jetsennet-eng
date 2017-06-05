@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>对象类型</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrameleft", {vLayout: [46, "auto", 40]});
+Layoutit("#divPageFrameright", {vLayout: [46, "auto", 40]});
+</script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="../../jetsenclient/javascript/bootstrap/html5shiv.min.js"></script> 
+  <script src="../../jetsenclient/javascript/bootstrap/respond.min.js"></script> 
+<![endif]-->
+
+
+</head>
+<body onload="pageInit();" class="panels">
+<div id="divPageFrameleft"  class="panel middle-panel panel-sm"   style=" background: white; float: left; height: 100%; width: 60%; margin: 0px; overflow-y:auto;">
+  
+    <div class="panel-heading">
+    	<div class="form-group pull-left">
+	      <div class="input-group input-group-xs input3">
+            <input type="text" class="form-control" id="txt_DESC" onkeydown="jetsennet.keyEvent(searchType)" placeholder="对象类型名称">
+	           <span class="input-group-btn">
+	             <button type="submit" class="btn btn-default" onclick="javascript:searchType();">
+	               <span class="glyphicon glyphicon-search"></span>
+	             </button>
+	           </span>
+	           
+	         </input>
+	      </div>
+      	</div>
+        <span class=>&nbsp;&nbsp;&nbsp;对象类型管理</span>
+      <div class='btn-group btn-group-sm pull-right'>
+        <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="gCrud.add();">
+          <i class="fa fa-plus"></i>
+          <span>&nbsp;新建</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="gCrud.edit();">
+          	  <i class="fa fa-pencil-square-o"></i>
+          <span>&nbsp;编辑</span>
+        </span>
+         <span style="cursor:pointer;margin-right: 10px;" title="复制" onclick="gCrud.copy();">
+          <i class="fa fa-plus"></i>
+          <span>&nbsp;复制</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="gCrud.remove();">
+          <i class="fa fa-times"></i>
+          <span>&nbsp;删除</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload();">
+          <i class="fa fa-refresh"></i>
+          <span>&nbsp;刷新</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="table-unbordered" id= "divRentObjTypeList">数据加载中...</div>
+    
+    <div class="panel-footer" id="divRentObjTypePage"></div>
+</div>
+
+<div id="divPageFrameright" class="panel middle-panel panel-sm"  style=" background: white; height: 100%; width:40%; align:right;">
+  
+    <div class="panel-heading">
+    	<div class="form-group pull-left">
+    	
+	      <div class="input-group input-group-xs input3" style="width:100%">
+	       	       	            
+	               <span class=>对象关联表</span>	         	        
+	         </input>
+	      </div>
+      	</div>
+      
+      <div class='btn-group btn-group-sm pull-right'>
+        <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="gItemCrud.add();">
+          <i class="fa fa-plus"></i>
+          <span>&nbsp;新建</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="gItemCrud.edit();">
+          	  <i class="fa fa-pencil-square-o"></i>
+          <span>&nbsp;编辑</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="gItemCrud.remove();">
+          <i class="fa fa-times"></i>
+          <span>&nbsp;删除</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="table-unbordered" id= "divRentObjTypeItemList">数据加载中...</div>
+    
+    <div class="panel-footer" id="divRentObjTypeItemPage"></div>
+</div>
+<!-- 对象类型   新增、编辑功能开始 -->
+  <div id="divRentObjType" style="display: none;">
+    <form class="form-horizontal mg-lg">
+         <div class="form-group">
+        <label for="OBJ_TYPE_PARENT_NAME" class="col-sm-2  control-label" >所属对象类型:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control selecttree" readonly onclick="popHiddenTree(el('divFunctionTree'), this);" id="OBJ_TYPE_PARENT_NAME" validatetype="NotEmpty" /> 
+            <input type="hidden" id="OBJ_TYPE_PARENT_ID"/>
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+        
+         <label for="OBJ_TYPE_NAME" class="col-sm-2  control-label" >对象类型名称:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" id="OBJ_TYPE_NAME" validatetype="NotEmpty" /> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+      </div>
+       
+     
+         <div class="form-group">
+        <label for="OBJ_TYPE_STATUS" class="col-sm-2  control-label" >对象类型状态:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="OBJ_TYPE_STATUS" default="1" class="form-control input-sm">
+                <option value="1" selected="selected">可用</option>
+                <option value="0">不可用</option>
+              </select>
+               <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+         <label for="OBJ_TYPE_STATUS_DESC" class="col-sm-2  control-label"  >类型状态描述:</label>
+        <div class="col-sm-4">
+         
+            <input type="text" class="form-control input-sm" id="OBJ_TYPE_STATUS_DESC"  /> 
+         
+          
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="OBJ_TYPE_DESC" class="col-sm-2 control-label"   >对象类型描述:</label>
+        <div class="col-sm-4">
+    
+            <input type="text"  class="form-control input-sm"  id="OBJ_TYPE_DESC"  maxlength="10" /> 
+      
+         
+        </div>
+        <label for="OBJ_TYPE_URL" class="col-sm-2 control-label"   >对象界面URL:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" id="OBJ_TYPE_URL" validatetype="NotEmpty" /> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+      </div>
+       <div class="form-group">
+        <label for="OBJ_TYPE_CHECK_RULE" class="col-sm-2 control-label"   >默认审核规则:</label>
+        <div class="col-sm-4">
+     	
+            <input type="text"  class="form-control input-sm" id="OBJ_TYPE_CHECK_RULE"  /> 
+           
+         
+        </div>
+        <label for="OBJ_TYPE_TABLE_NAME" class="col-sm-2 control-label"   >对应表名:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+         
+    			<select id="OBJ_TYPE_TABLE_NAME" class="form-control input-sm" validatetype="NotEmpty">
+    			</select>	
+          <!--   <input type="text" class="form-control" id="OBJ_TYPE_TABLE_NAME" validatetype="NotEmpty" />  -->
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+      </div>
+      
+    
+      
+          <div class="form-group">
+          <label for="OBJ_TYPE_CODE" class="col-sm-2  control-label" >对象类型代码:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control" id="OBJ_TYPE_CODE" validatetype="NotEmpty" /> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+      </div>    
+       
+
+    </form>
+  </div>
+  
+ <!-- 对象关联表的新增编辑框 -->
+    <div id="divRentObjTypeItem" style="display: none;">
+    <form class="form-horizontal mg-lg">
+         <div class="form-group">
+         <label for="ITEM_COLUMN_NAME" class="col-sm-2  control-label" >字段名:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="ITEM_COLUMN_NAME" class="form-control input-sm" validatetype="NotEmpty" onchange="isPrimary()">
+              </select>
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+        
+            <label for="ITEM_DISPLAY_NAME" class="col-sm-2  control-label"  >字段显示名:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+         <input type="text" class="form-control" id="ITEM_DISPLAY_NAME" validatetype="NotEmpty" /> 
+               <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div> 
+      </div>
+ 
+       <div class="form-group">  
+           <label for="ITEM_IS_PK" class="col-sm-2  control-label"  >是否主键:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="ITEM_IS_PK" default="0" class="form-control input-sm" validatetype="NotEmpty" >
+                <option value="1" selected="selected">是</option>
+                <option value="0">否</option>
+              </select>
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+             <label for="ITEM_IS_NAME" class="col-sm-2  control-label"  >是否名称:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="ITEM_IS_NAME" default="0" class="form-control input-sm" validatetype="NotEmpty" >
+                <option value="1" selected="selected">是</option>
+                <option value="0">否</option>
+              </select> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+       </div>     
+        <div class="form-group">              
+         <label for="ITEM_IS_CODE" class="col-sm-2  control-label"  >是否编码:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="ITEM_IS_CODE" default="0" class="form-control input-sm" validatetype="NotEmpty" >
+                <option value="1" selected="selected">是</option>
+                <option value="0">否</option>
+              </select> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+              <label for="ITEM_IS_STATUS" class="col-sm-2  control-label"  >是否状态:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="ITEM_IS_STATUS" default="0" class="form-control input-sm" validatetype="NotEmpty" >
+                <option value="1" selected="selected">是</option>
+                <option value="0">否</option>
+              </select> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+      </div>
+      
+      
+              <div class="form-group">              
+         <label for="ITEM_IS_CREATE_TIME" class="col-sm-2  control-label"  style="padding-left: 6px;" >是否创建时间:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="ITEM_IS_CREATE_TIME" default="0" class="form-control input-sm" validatetype="NotEmpty" >
+                <option value="1" selected="selected">是</option>
+                <option value="0">否</option>
+              </select> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+        
+             <label for="ITEM_IS_MAC_ADDRESS" class="col-sm-2  control-label"  style="padding-left: 6px;" >是否地址:</label>
+        <div class="col-sm-4">
+          <div class="input-group input-group-sm">
+          <select id="ITEM_IS_MAC_ADDRESS" default="0" class="form-control input-sm" validatetype="NotEmpty" >
+                <option value="1" selected="selected">是</option>
+                <option value="0">否</option>
+              </select> 
+            <span class="input-group-addon" style="color: Red">*</span>
+          </div>
+        </div>
+      </div>
+    
+      
+     
+       
+
+    </form>
+  </div>
+  
+   <div id="divFunctionTree" style="display: none; border: solid 1px #ccc; background: #fff; height: 150px; overflow: auto" class="ztree" minWidth="200px"></div>
+   <!-- 所属类div  --> 
+  <div id="divRentClass" style="display: none;height:100%;">
+    <div id="divRentClassList" style="height:100%;"></div>
+  </div>
+<script type="text/javascript" src="javascript/rentObjType.js"></script>  
+</body>
+</html>

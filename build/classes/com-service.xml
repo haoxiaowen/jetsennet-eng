@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://cxf.apache.org/jaxrs
+	http://cxf.apache.org/schemas/jaxrs.xsd 
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd">
+	
+	<!-- 日志存储 -->
+	<bean id="logMgr" class="jetsennet.jcom.util.log.LogMgr">
+		<property name="dao" ref="baseDao" />
+	</bean>
+
+	<!-- #####SOAP连接器######## -->
+	<bean id="dbinterceptorIn" class="jetsennet.jcom.services.interceptor.LogInterceptorIN">
+		<property name="logmgr" ref="logMgr"/>
+	</bean>
+	<bean id="dbinterceptorOut" class="jetsennet.jcom.services.interceptor.LogInterceptorOut">
+		<property name="logmgr" ref="logMgr"/>
+	</bean>
+
+	<!--###################### TRM任务接受 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_TaskReceiveService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_TaskReceiveService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="taskReceiveClient"
+		serviceClass="com.cctv.esb._interface.taskreceiveservice._0_1.TaskReceive" address="http://localhost/jetsennet-jbase/services/UE2_TaskReceiveService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+
+	<!--###################### TRM任务变更 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_TaskChangeService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_TaskChangeService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="taskChangeClient"
+		serviceClass="com.cctv.esb._interface.taskchangeservice._0_1.TaskChange" address="http://localhost/jetsennet-jbase/services/UE2_TaskChangeService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### TRM任务取消 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_TaskCancelService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_TaskCancelService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="taskCancelClient"
+		serviceClass="com.cctv.esb._interface.taskcancelservice._0_1.TaskCancel" address="http://localhost/jetsennet-jbase/services/UE2_TaskCancelService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 导入允许回调接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_ImportCallbackService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_ImportCallbackService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="importCallbackClient"
+		serviceClass="com.cctv.emb._interface.importcallbackservice._1_0.ImportCallback" address="http://localhost/jetsennet-jbase/services/UE2_ImportCallbackService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 导入允许接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_ImportAllowService" >
+		<jaxws:serviceBean>
+			<bean class="jetsennet.jue2.services.out.UE2_ImportAllowService">
+				<property name="importAllowImpl" ref="uE2_ImportAllowImpl" />
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="importAllowClient"
+		serviceClass="com.cctv.emb._interface.importallowservice._1_0.ImportAllow" address="http://localhost/jetsennet-jbase/services/UE2_ImportAllowService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 文件直送接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_FileDeliveryCallbackService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_FileDeliveryCallbackService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="fileDeliveryCallbackClient"
+		serviceClass="com.cctv.ba1._interface.filedeliverycallbackservice._1_0.FileDeliveryCallback" address="http://localhost/jetsennet-jbase/services/UE2_FileDeliveryCallbackService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### EMB回调接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_EMBCallbackService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_EMBCallbackService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="embCallbackCallbackClient"
+		serviceClass="com.cctv.emb._interface.embcallbackservice._1_0.EMBCallback" address="http://localhost/jetsennet-jbase/services/UE2_EMBCallbackService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 添加EMB任务接口 #####################################-->
+	<!--客户端-->
+	<jaxws:client id="addEMBTaskClient"
+		serviceClass="com.cctv.emb.addembtaskservice._1_0.AddEMBTask" address="http://emb.cctv.com:9080/cctvembws/services/AddEMBTaskService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 内容交换回调接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_ContentImportService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_ContentImportService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="contentImportClient"
+		serviceClass="com.cctv.emb._interface.contentimportservice._1_0.ContentImport" address="http://localhost/jetsennet-jbase/services/UE2_ContentImportService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 栏目信息接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_ColumnInfoSubService" >
+		<jaxws:serviceBean>
+		    <bean
+				class="jetsennet.jue2.services.out.UE2_ColumnInfoSubService">
+				 <property name="columninfoimp" ref="Columninfoimp" />
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="columnInfoSubClient"
+		serviceClass="com.cctv.esb._interface.columninfosubscribeservice._1_0.ColumnInfoSub" address="http://localhost/jetsennet-jbase/services/UE2_ColumnInfoSubService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 频道信息接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_ChannelInfoSubService" >
+		<jaxws:serviceBean>
+			<bean class="jetsennet.jue2.services.out.UE2_ChannelInfoSubService">
+			 <property name="channalinfo" ref="Channalinfoimp" />
+				
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="channelInfoSubClient"
+		serviceClass="com.cctv.esb._interface.channelinfosubscribeservice._1_0.ChannelInfoSub" address="http://localhost/jetsennet-jbase/services/UE2_ChannelInfoSubService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 校验结果接口 #####################################-->
+	<!--服务端-->
+	<jaxws:server address="/UE2_AuditResultService" >
+		<jaxws:serviceBean>
+			<bean
+				class="jetsennet.jue2.services.out.UE2_AuditResultService">
+			</bean>
+		</jaxws:serviceBean>
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:server>
+
+	<!--客户端-->
+	<jaxws:client id="auditResultClient"
+		serviceClass="com.cctv.a4k.service.auditresultservice._1_0.AuditResult" address="http://localhost/jetsennet-jbase/services/UE2_AuditResultService">
+
+		<jaxws:inInterceptors>
+			<ref bean="dbinterceptorIn" />
+		</jaxws:inInterceptors>
+		<jaxws:outInterceptors>
+			<ref bean="dbinterceptorOut" />
+		</jaxws:outInterceptors>
+	</jaxws:client>
+	
+	<!--###################### 文件上载 #####################################-->
+	<jaxws:server address="/CommonTurboService" >
+		<jaxws:serviceBean>
+			<bean
+				class="com.jetsen.jvta.service.CommonTurboService">
+			</bean>
+		</jaxws:serviceBean>
+	</jaxws:server>
+</beans>

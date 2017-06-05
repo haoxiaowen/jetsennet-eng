@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>地图展示</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+		body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=82NRBt853FMjeeB0tbVMGUGGEOB5La8i"></script>
+	<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript">
+	var devCode = getQueryString("deviceName");
+	var localX = getQueryString("localX");
+	var localY = getQueryString("localY");
+	var devName;
+	//页面初始化
+	function pageInit(){
+		devName=decodeURI(getQueryString("deviceName"));
+		coordChange();
+		setTimeout(initMap,1000);
+	}
+	
+	// 百度地图API功能
+	function initMap(){
+		var map = new BMap.Map("allmap");    // 创建Map实例
+		//map.centerAndZoom(new BMap.Point(localX, localY), 13);  // 初始化地图,设置中心点坐标和地图级别
+		map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+		map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+		map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+		map.addControl(new BMap.NavigationControl());
+		
+		var point = new BMap.Point(localX, localY);
+		map.centerAndZoom(point, 15);
+		var marker = new BMap.Marker(point);  // 创建标注
+		map.addOverlay(marker);               // 将标注添加到地图中
+		
+		var label = new BMap.Label("设备"+devName,{offset:new BMap.Size(20,0)});
+		marker.setLabel(label);
+	}
+	
+	//坐标转换
+	function coordChange(){
+		var url = "http://api.map.baidu.com/geoconv/v1/?ak=82NRBt853FMjeeB0tbVMGUGGEOB5La8i&from=6&to=5&coords="+localX+","+localY;
+	    $.ajax({
+		     url:url,
+		     dataType:'jsonp',
+		     processData: false, 
+		     type:'get',
+		     success:function(data){
+		       //alert(JSON.stringify(data));
+		       if(data){
+		    	   var status = data.status;
+		    	   if(status==0){
+			   			var gpsArr = data.result;
+						gps = gpsArr[0];
+						localX = gps.x;
+						localY = gps.y;
+						//alert(localX + ","+ localY);
+		    	   }
+		       }
+		     },
+		     error:function(XMLHttpRequest, textStatus, errorThrown) {
+		       alert("坐标转换失败");
+		     }
+		});
+	}
+	
+	//获取url参数
+	function getQueryString(name) { 
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r != null) return unescape(r[2]); return null; 
+	}
+</script>
+</head>
+<body onload="pageInit();">
+	<div id="allmap"></div>
+</body>
+</html>

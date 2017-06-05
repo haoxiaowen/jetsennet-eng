@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>借用单申请</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+Layoutit("#divPageFrame", {vLayout: [46, "auto", 40]});
+</script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="../../jetsenclient/javascript/bootstrap/html5shiv.min.js"></script> 
+  <script src="../../jetsenclient/javascript/bootstrap/respond.min.js"></script> 
+<![endif]-->
+
+
+</head>
+<body onload="pageInit();" class="panels">
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+
+
+			<div class="panel-heading">
+				
+				<div class='btn-group btn-group-sm pull-left' >
+					
+			     人员／部门／栏目: <input type="text" id="txtApp" 
+				style="width: 20"></input>
+				开始时间: <input type="text" id="txtStartTime" onclick="jetsennet.pickDate(this, true)"
+				style="width: 20">
+					  </input> 
+				结束时间: <input type="text" id="txtEndTime" onclick="jetsennet.pickDate(this, true)" >
+							
+						  		<button type="submit"  onclick="searchApp();">
+				               		<span class="glyphicon glyphicon-search"></span>
+				             	</button>
+			             	
+			            </input>
+			
+					</div>
+	           				
+					<div class="form-group" style="float: right">
+						<div id="divButtons" class="pull-right"
+							style="display: inline-block; margin-top: -2px;">
+							<span style="cursor:pointer;margin-right: 10px;" title="提交" onclick="suCheck();">
+					          <i class="fa fa-plus"></i>
+					          <span>&nbsp;提交审核</span>
+					        </span>
+							 <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="add();">
+					          <i class="fa fa-plus"></i>
+					          <span>&nbsp;新建</span>
+					        </span>
+					          	<span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="edit();">
+					          	  <i class="fa fa-pencil-square-o"></i>
+					          <span>&nbsp;编辑</span>
+					        </span>
+					        <span style="cursor:pointer;margin-right: 10px;" title="附件" onclick="atfile();">
+					          	  <i class="fa fa-pencil-square-o"></i>
+					          <span>&nbsp;附件</span>
+					        </span>
+							<span style="cursor: pointer; margin-right: 10px;" title="删除"
+								onclick="gCrud.removeordite();"> <i
+								class="fa fa-times"></i> <span>&nbsp;删除</span>
+							</span> <span style="cursor: pointer; margin-right: 10px;" title="刷新"
+								onclick="document.location.reload();"> <i
+								class="fa fa-refresh"></i> <span>&nbsp;刷新</span>
+							</span>
+						</div>
+					</div>
+				
+			</div>
+			<div class="table-unbordered" id= "divApplyList"></div>
+    		<div class="panel-footer" id="divApplyPage"></div>
+		</div>
+<div id="divChooseObj" style="height:100%; overflow: hidden; display: none;">
+		<iframe frameborder="0" id="iframeObj" name="iframeObj" scrolling="auto" 
+		style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%" src = ""></iframe>
+</div>
+<div id="divfileObj" style="height:100%; overflow: hidden; display: none;">
+		<iframe frameborder="0" id="iframefile" name="iframefile" scrolling="auto" 
+		style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%" src = ""></iframe>
+</div>
+  <!-- 新增，编辑用户结束  -->
+<script type="text/javascript" src="javascript/applyForManage.js"></script>  
+</body>
+</html>

@@ -1,0 +1,414 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>人员管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+//Layoutit("#divPageFrame", {vLayout: [46, "auto", 40]});
+Layoutit("#divPageFrameleft", {vLayout: [46, "auto", 40]});
+Layoutit("#divPageFrameright", {vLayout: [46, "auto", 40]});
+</script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="../../jetsenclient/javascript/bootstrap/html5shiv.min.js"></script> 
+  <script src="../../jetsenclient/javascript/bootstrap/respond.min.js"></script> 
+<![endif]-->
+
+<script type="text/javascript">
+Layoutit("#divSourceOut", {
+	vLayout : [ 46, "auto", 40 ]
+});
+</script>
+</head>
+<body onload="pageInit();" class="panels">
+
+<!-- <div id="divPageFrame"> -->
+<div id="divPageFrameleft"  class="panel middle-panel panel-sm"   style=" background: white; float: left; height: 100%; width: 60%; margin: 0px; overflow-y:auto;">
+        <div class="panel-heading">
+            <div class="input-group input-group-xs pull-left input3">
+	          <input type="text" class="form-control" id="txt_DESC" onkeydown="jetsennet.keyEvent(searchUser)" placeholder="人员/部门/栏目">
+	            <span class="input-group-btn">
+	              <button type="submit" class="btn btn-default" onclick="searchDepart();">
+	                <span class="glyphicon glyphicon-search"></span>
+	              </button>
+	            </span>
+	          </input>
+	        </div>
+            <span class=>&nbsp;&nbsp;&nbsp;资源出库单</span>
+            <div id="divButtons" class="pull-right" style=" display: inline-block; margin-top: -2px; ">
+            	 <span style="cursor:pointer;margin-right: 10px;" title="新增" onclick="addOutOrder();">
+		          <i class="fa fa-plus"></i>
+		          <span>&nbsp;新增</span>
+		        </span>
+            	<span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="editSource();">
+            	  <i class="fa fa-pencil-square-o"></i>
+		          <span>&nbsp;编辑</span>
+		        </span>
+            	<span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="removeSource();">
+		          <i class="fa fa-times"></i>
+		          <span>&nbsp;删除</span>
+		        </span>
+            	<span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload();">
+		          <i class="fa fa-refresh"></i>
+		          <span>&nbsp;刷新</span>
+		        </span>
+            </div>
+        </div>
+        <div class="table-unbordered" id="divApplicationList"></div>
+        <div class="panel-footer" id="divApplicationPage"></div>
+        </div>
+<!-- </div> -->
+	<div id="divPageFrameright" class="panel middle-panel panel-sm"  style=" background: white; height: 100%; width:40%; align:right;">
+  
+    <div class="panel-heading">
+    	<div class="form-group pull-left">
+    	
+	      <div class="input-group input-group-xs input3" style="width:100%">
+	       	       	            
+	               <span class=>资源出库项目</span>	         	        
+	         </input>
+	      </div>
+      	</div>
+      
+      <div class='btn-group btn-group-sm pull-right'>
+        <span style="cursor:pointer;margin-right: 10px;" title="审核" id="exeSubmit" onclick="examineSub();">
+          <i class="fa fa-plus"></i>
+          <span>&nbsp;审核</span>
+        </span>
+        <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="gCrudItem.add();">
+          <i class="fa fa-plus"></i>
+          <span>&nbsp;新建</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="gCrudItem.edit();">
+          	  <i class="fa fa-pencil-square-o"></i>
+          <span>&nbsp;编辑</span>
+        </span>
+          	<span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="gCrudItem.remove();">
+          <i class="fa fa-times"></i>
+          <span>&nbsp;删除</span>
+        </span>
+      </div>
+    </div>
+    <div class="table-unbordered" id= "divoutItem">数据加载中...</div>
+    <div class="panel-footer" id="divPageItem"></div>
+</div>
+	
+  <!-- 添加出库单 -->
+ <div id="divadd" style="display: none">
+ 	 <div class="tab-pane fade in active">
+        <form class="form-horizontal mg-lg" id="iframeadd" name="iframeadd">
+          <div class="form-group">
+            <label for="txt_OUT_CODE" class="col-sm-2 control-label">出库单号:</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+               <input type="hidden" id="txt_OUT_ID"></input>
+                <input type="text" class="form-control" id="txt_OUT_CODE" validatetype="NotEmpty" /> 
+                <span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+            <label for="txt_OUT_DEPT_CODE" class="col-sm-2 control-label">借用部门:</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+              <input type="text" class="form-control" id="txt_OUT_DEPT_CODE" 
+									onclick = "sourceDepart()" validatetype="NotEmpty"/>
+                  <span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group" id="tr_ModifyPw">
+            <label for="txt_OUT_COLN_CODE" class="col-sm-2 control-label">借用栏目:</label>
+            <div class="col-sm-10">
+              <div class="input-group input-group-sm">
+              <input type="text" class="form-control" id="txt_OUT_COLN_CODE" 
+									onclick = "SelectColumn()" validatetype="NotEmpty"/>
+                <span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="txt_OUT_START_TIME" class="col-sm-2 control-label">起借时间:</label>
+            <div class="col-sm-4">
+	            <div class="input-group input-group-sm">
+					<!-- <input type="text" class="form-control" id="MDT_BEGIN_TIME" validatetype="NotEmpty" placeholder="必填项" />  -->
+						<input type="text" class="form-control selectdate"  onclick="jetsennet.pickDate(this, true)" id="txt_OUT_START_TIME" validatetype="NotEmpty" placeholder="必填项"  /> 
+						<span class="input-group-addon" style="color: Red">*</span>
+				</div>
+            </div>
+            <label for="txt_OUT_END_TIME" class="col-sm-2 control-label">归还时间:</label>
+            <div class="col-sm-4">
+            <div class="input-group input-group-sm">
+				<!-- <input type="text" class="form-control" id="MDT_BEGIN_TIME" validatetype="NotEmpty" placeholder="必填项" />  -->
+					<input type="text" class="form-control selectdate"  onclick="jetsennet.pickDate(this, true)" id="txt_OUT_END_TIME" validatetype="NotEmpty" placeholder="必填项"  /> 
+					<span class="input-group-addon" style="color: Red">*</span>
+			</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="txt_OUT_DESC" class="col-sm-2 control-label">出库说明:</label>
+            <div class="col-sm-10">
+              <textarea id="txt_OUT_DESC" class="form-control" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="txt_OUT_KEEPER" class="col-sm-2 control-label">库管人员:</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="txt_OUT_KEEPER" validatetype="NotEmpty" /> 
+            </div>
+            <label for="txt_OUT_CREATE_TIME" class="col-sm-2 control-label">出库时间:</label>
+            <div class="col-sm-4">
+             <input type="text" class="form-control" id="txt_OUT_CREATE_TIME" validatetype="NotEmpty" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="txt_OUT_CHECK_USER" class="col-sm-2 control-label">出库核验:</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="txt_OUT_CHECK_USER" validatetype="NotEmpty" onClick="addUser();"/>
+            </div>
+            <label for="txt_OUT_CHECK_TIME" class="col-sm-2 control-label">核验时间:</label>
+            <div class="col-sm-4">
+             <input type="text" class="form-control" id="txt_OUT_CHECK_TIME" validatetype="NotEmpty" />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="txt_OUT_USER" class="col-sm-2 control-label">领取人工号:</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="txt_OUT_USER" validatetype="NotEmpty" onClick="addUser('1');"/>
+            </div>
+            <label for="txt_OUT_USER_NAME" class="col-sm-2 control-label">领取人姓名:</label>
+            <div class="col-sm-4">
+             <input type="text" class="form-control" id="txt_OUT_USER_NAME" readonly="readonly" validatetype="NotEmpty" />
+            </div>
+          </div>
+        </form>
+        <div class="col-sm-3 input-group-xs pull-right input2">
+			<button type="button" id="new" class="btn btn-primary btn-sm"
+				onClick="saveadd();">
+				<span class="glyphicon glyphicon-add"></span>保存
+			</button>
+		</div>
+      </div>
+      
+		<H5>添加资源出库项：</H5>
+		<div id="divSourceOut" style="width: 600px:, height:200px;">
+			<div class="panel-heading">
+				<div class="input-group input-group-xs pull-right input3">
+					<span style="cursor: pointer; margin-right: 10px;" title="新建"
+						onclick="addSourceOut()"> <i class="fa fa-plus"></i> <span>&nbsp;新建</span>
+					</span> <span style="cursor: pointer; margin-right: 10px;" title="编辑"
+						onclick="gCrudSource.edit();"> <i class="fa fa-pencil-square-o"></i>
+						<span>&nbsp;编辑</span>
+					</span> <span style="cursor: pointer; margin-right: 10px;" title="删除"
+						onclick="gCrudSource.remove();"> <i class="fa fa-times"></i>
+						<span>&nbsp;删除</span>
+					</span>
+				</div>
+			</div>
+			<div id="divout" style="width: 600px:, height:200px;">数据加载中...</div>
+			<div class="panel-footer" id="divPagesource"
+				style="width: 600px:, height:200px;"></div>
+		</div>
+	</div>
+ 
+ <!-- 选择人员 -->
+	    <div id="divChoose" style="height:355px; overflow: hidden; display: none;">
+	    	<iframe frameborder="0" id="iframeUser" name="iframeUser" scrolling="auto" 
+				style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:355px"></iframe>
+	    </div>
+  
+ <!-- 添加资源出库项 -->
+ <div id="divsour" style="display: none">
+ 	 <div class="tab-pane fade in active">
+        <form class="form-horizontal mg-lg" id="iframeadd" name="iframeadd">
+          <div class="form-group">
+            <label for="txt_OBJ_TYPE_NAME" class="col-sm-2 control-label">资源类型:</label>
+            <div class="col-sm-4">
+            <div class="input-group input-group-sm">
+              <input type="hidden" id="txt_ITEM_ID"></input>
+               <input type="text" class="form-control" id="txt_OBJ_TYPE_NAME" 
+									onclick = "searchSourceType()" validatetype="NotEmpty"/> 
+									<span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+            <!--  对象代码-->
+            <label for="txt_ITEM_CODE" class="col-sm-2 control-label">资源代码:</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+               <select id="txt_ITEM_CODE" class="form-control" onblur="getVal(this)"></select>
+                <span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="txt_ITEM_NAME" class="col-sm-2 control-label">名称:</label>
+            <div class="col-sm-4">
+            <div class="input-group input-group-sm">
+				<input type="text" class="form-control" id="txt_ITEM_NAME" readonly="readonly" validatetype="NotEmpty"/>
+					<span class="input-group-addon" style="color: Red">*</span>
+			</div>
+            </div>
+            <label for="txt_ITEM_FOLLOW_PERSON" class="col-sm-2 control-label">跟机人:</label>
+            <div class="col-sm-4">
+            
+            <div class="input-group input-group-sm">
+            <input type="text" class="form-control" id="txt_ITEM_FOLLOW_PERSON" 
+									onclick = "SelectPerson()" validatetype="NotEmpty"/>
+					<span class="input-group-addon" style="color: Red">*</span>
+			</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="txt_ITEM_OBJ_PRICE" class="col-sm-2 control-label">单价:</label>
+            <div class="col-sm-4">
+              <input type="text" class="form-control" id="txt_ITEM_OBJ_PRICE" readonly="readonly" validatetype="NotEmpty" /> 
+            </div>
+            <label for="txt_ITEM_OBJ_NUM" class="col-sm-2 control-label">数量:</label>
+            <div class="col-sm-4">
+             <input type="text" class="form-control" id="txt_ITEM_OBJ_NUM" onblur="selNum(this)" validatetype="NotEmpty" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="txt_ITEM_REMARK" class="col-sm-2 control-label">备注:</label>
+            <div class="col-sm-10">
+             <textarea id="txt_ITEM_REMARK" class="form-control" rows="4"></textarea>
+            </div>
+          </div>
+          
+            <div class="form-group">
+            <label for="txt_ITEM_OBJ_SPECS" class="col-sm-2 control-label">规格:</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+              <input type="hidden" id="txt_ITEM_ID"></input>
+                <input type="text" class="form-control" id="txt_ITEM_OBJ_SPECS" readonly="readonly" validatetype="NotEmpty" /> 
+                <span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+            <!--  对象代码-->
+            <label for="txt_ITEM_OBJ_UOM" class="col-sm-2 control-label">使用单元:</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+              <input type="text" class="form-control" id="txt_ITEM_OBJ_UOM" readonly="readonly" validatetype="NotEmpty" /> 
+<!--                 <select id="txt_ITEM_OBJ_UOM" default="0" class="form-control input-sm"> -->
+<!-- 					                <option value="1" selected="selected">元</option> -->
+<!-- 					                <option value="2">天</option> -->
+<!-- 				</select> -->
+             	
+              </div>
+            </div>
+          </div>
+            <div class="form-group">
+            <label for="txt_ITEM_OBJ_DESC" class="col-sm-2 control-label">型号:</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+              <input type="hidden" id="txt_ITEM_ID"></input>
+              <input type="hidden" id="txt_ITEM_OBJ_UOM_SUM"></input>
+<!--              <input type="hidden" id="txt_ITEM_OBJ_TYPE"></input> -->
+                <input type="text" class="form-control" id="txt_ITEM_OBJ_DESC" readonly="readonly" validatetype="NotEmpty" /> 
+                <span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+            <!--  对象代码-->
+            <label for="txt_ITEM_OBJ_CODE" class="col-sm-2 control-label">序列号:</label>
+            <div class="col-sm-4">
+              <div class="input-group input-group-sm">
+                <input type="text" class="form-control" id="txt_ITEM_OBJ_CODE" readonly="readonly" validatetype="NotEmpty" /> 
+                <span class="input-group-addon" style="color: Red">*</span>
+              </div>
+            </div>
+          </div>
+            
+            
+        </form>
+		</br>
+      </div>
+	</div>
+  
+   <!-- 资源代码 -->
+  <div id="divSelectSouCode" style="display: none;height:100%;">
+  		<div class="table-unbordered" id="divSelectSouTypeList"></div>
+        <div class="panel-footer" id="divSouTypeListPage"></div>
+  </div>
+  
+  
+    <div id="divPageFrame3" class="panel middle-panel panel-sm">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input type="text" class="form-control" id="OBJ_TYPE_CODE"
+							onkeydown="jetsennet.keyEvent(searchTypeCode)" placeholder="资源编码">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default"
+								onclick="javascript:searchTypeCode();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> </input>
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divTypeList" style = "height:255px"></div>
+		<div class="panel-footer" id="divTypePage"></div>
+	</div>
+	
+	<div id="divPageFrame1" class="panel middle-panel panel-sm">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input type="text" class="form-control" id="name"
+							onkeydown="jetsennet.keyEvent(searchName)" placeholder="部门名称">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default"
+								onclick="javascript:searchName();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> </input>
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divSourceCodeList" style = "height:255px"></div>
+		<div class="panel-footer" id="divSourceCodePage"></div>
+	</div>
+	
+	<div id="divPageFrame2" class="panel middle-panel panel-sm">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input type="text" class="form-control" id="colname"
+							onkeydown="jetsennet.keyEvent(searchcolumn)" placeholder="栏目名称">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default"
+								onclick="javascript:searchcolumn();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> </input>
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divSourceColumnList" style = "height:255px"></div>
+		<div class="panel-footer" id="divSourceColumnPage"></div>
+	</div>
+  
+  
+  <div id="divPageFrame4" class="panel middle-panel panel-sm">
+		<div class="panel-heading">
+				<div class="form-group left">
+					<div class="input-group input-group-xs input3">
+						<input type="text" class="form-control" id="user"
+							onkeydown="jetsennet.keyEvent(searchuser)" placeholder="用户名">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default"
+								onclick="javascript:searchuser();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> </input>
+					</div>
+				</div>	
+		</div>
+		<div class="table-unbordered" id="divSourceuserList" style = "height:255px"></div>
+		<div class="panel-footer" id="divSourceuserPage"></div>
+	</div>
+<script type="text/javascript" src="javascript/resourceOutlib.js"></script>   
+</body>
+</html>

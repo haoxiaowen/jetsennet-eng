@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>申请项订单条目</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+	Layoutit("#divPageFrame", {
+		vLayout : [ 46, "auto", 40 ]
+	});
+</script>
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="../../jetsenclient/javascript/bootstrap/html5shiv.min.js"></script> 
+  <script src="../../jetsenclient/javascript/bootstrap/respond.min.js"></script> 
+<![endif]-->
+
+
+</head>
+<body onload="pageInit();" class="panels">
+	<div id="divPageFrame" class="panel middle-panel panel-sm">
+
+
+		<div class="panel-heading">
+
+			<div class='btn-group btn-group-sm pull-left'>
+
+
+				开始时间: <input type="text" id="txtStartTime"
+					onclick="jetsennet.pickDate(this, true)" style="width: 20">
+				</input> 结束时间: <input type="text" id="txtEndTime"
+					onclick="jetsennet.pickDate(this, true)"/>
+					设备名称:<input type="text"  id="txtObjName"
+					/>
+					<button type="submit" onclick="searchItem();">
+						<span class="glyphicon glyphicon-search"></span>
+					</button> 
+			</div>
+			<div class="form-group" style="float: right">
+				<div id="divButtons" class="pull-right"
+					style="display: inline-block; margin-top: -2px;">
+						<span style="cursor:pointer;margin-right: 10px;" title="查看统计" onclick="objImage();">
+			          <i class="glyphicon glyphicon-list-alt"></i>
+			          <span>&nbsp;查看统计</span>
+			        </span>
+					
+					
+					  <span style="cursor:pointer;margin-right: 10px;" title="导出" onclick="exportExcel();">
+			          <i class="glyphicon glyphicon-download"></i> 
+			          <span>&nbsp;导出</span>
+			        </span>
+					 </span> <span style="cursor: pointer; margin-right: 10px;"
+						title="刷新" onclick="document.location.reload();"> <i
+						class="fa fa-refresh"></i> <span>&nbsp;刷新</span>
+					</span>
+				</div>
+			</div>
+
+		</div>
+		<div class="table-unbordered" id="divRentOutItem"></div>
+		<div class="panel-footer" id="divPageRentOutItem"></div>
+	</div>
+  <!-- 弹出页面 -->
+	<div id="divPopWin" style="width:100%; height:100%; display:none">
+			<iframe frameborder="0" id="iframePopWin" name="iframePopWin" scrolling="auto" 
+			style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%"></iframe>
+	</div>
+
+	<script type="text/javascript" src="javascript/rentOrdItem.js"></script>
+</body>
+</html>

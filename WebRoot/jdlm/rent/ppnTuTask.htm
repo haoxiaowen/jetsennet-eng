@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>传输任务 </title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript" src="javascript/ppnTuTask.js"></script>
+<style type="text/css">
+.daterangepicker .ranges {
+  width: 255px;
+  text-align: left;
+}
+.daterangepicker .ranges .range_inputs>div {
+  float: left;
+  width: 100px;
+}
+.daterangepicker .ranges .range_inputs>div:nth-child(2) {
+  padding-left: 11px;
+  width: 100px;
+}
+.daterangepicker .daterangepicker_start_input label,
+.daterangepicker .daterangepicker_end_input label {
+  width: 120px;
+}
+.daterangepicker_end_input{
+	margin-left: 15px;
+}
+.daterangepicker .ranges .input-mini {
+  width: 122px;
+}
+</style>
+</head>
+<body onload="pageInit();" class="panels">
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+    <!--  传输任务  -->
+    <div>
+    <div class="panel-heading" style="background-color : #eff3f6;">
+    		 <div class="pull-left input4" id="divNavigation"></div>
+    			<div class="input-group input-group-xs pull-left input7">
+	            	<form class="form-inline margin-bottom-sm">
+				      <span class="margin-left-md">传输时间:</span>
+						<div class="input-group">
+							<input class="input-group-sm search" type="text" readonly id="log_time" style="width:270px">
+						   	<span class="glyphicon glyphicon-remove" id="clearTime" style="margin-left:-20px;" onclick="clearTime();"></span>
+						</div>
+				      <button type="button" class="btn btn-primary btn-xs" onclick="searchConfirm();">
+				        <span class="glyphicon glyphicon-search"></span> 查询
+				      </button>
+			    	</form>
+    			</div>
+			      <div class="form-group" style="float: right">
+			      <span style="cursor:pointer;margin-left: 10px;" title="查看统计值" onclick="selectTj();">
+			          <i class="glyphicon glyphicon-search"></i>
+			          <span>&nbsp;查看统计值</span>
+			        </span>
+			        <span style="cursor:pointer;margin-left: 10px;" title="导出" onclick="exportExcel();">
+			          <i class="glyphicon glyphicon-save"></i>
+			          <span>&nbsp;导出</span>
+			        </span>
+			        </div>
+            	</div>
+	    <div class="table-unbordered" id= "divResList" style="border-top-width: 1px; border-top-style: solid;border-top-color: #d0d4e0;">数据加载中...</div>    
+	    <div class="panel-footer" id="divResPage"></div>
+    </div>
+    <!--  传输文件信息 -->
+    <div>
+    <div class="panel-heading" style="background-color : #eff3f6;">
+    	<div class="form-group pull-left">传输文件信息</div>
+    	<div class='btn-group btn-group-sm pull-right'>
+	        <!-- <span style="cursor:pointer;margin-right: 10px;" title="新建" onclick="gR2tCrud.add();">
+	          <i class="fa fa-plus" ></i><span>&nbsp;新建</span>
+	        </span>
+	        <span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="gR2tCrud.remove();">
+	          <i class="fa fa-times"></i><span>&nbsp;删除</span>
+	        </span> -->
+	      </div>
+    </div>
+    <div class="table-unbordered" id= "divRes2TypeList"  style="border-top-width: 1px; border-top-style: solid;border-top-color: #d0d4e0;"></div>
+    </div>
+    
+ </div>
+
+<!-- 弹出页面 -->
+		<div id="divPopWin" style="width:100%; height:100%; display:none">
+			<iframe frameborder="0" id="iframePopWin" name="iframePopWin" scrolling="auto" 
+			style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%"></iframe>
+		</div>
+</body>
+</html>

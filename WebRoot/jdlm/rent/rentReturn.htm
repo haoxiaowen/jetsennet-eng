@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>入库管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript" src="javascript/rentReturn.js"></script>
+</head>
+<body onload="pageInit();" class="panels">
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+    <!--  列表  -->
+    <div class="panel-heading" style="background-color : #eff3f6;">
+    	<!--  所搜框  -->
+    	<div class="form-group pull-left">
+	      <div class="input-group input-group-xs input3">
+            <input type="text" class="form-control" id="txt_RES_NAME" onkeydown="jetsennet.keyEvent(searchRetu)" placeholder="人员/部门/栏目">
+	           <span class="input-group-btn">
+	             <button type="submit" class="btn btn-default" onclick="javascript:searchRetu();"><span class="glyphicon glyphicon-search"></span></button>
+	           </span>
+	         </input>
+	      </div>
+      	</div>
+    
+      <div class='btn-group btn-group-sm pull-right'>
+        <span style="cursor:pointer;margin-right: 10px;" title="添加" onclick="addReturn()">
+          <i class="fa fa-plus" ></i><span>&nbsp;添加</span>
+        </span>
+     <!--    <span style="cursor:pointer;margin-right: 10px;" title="编辑" onclick="">
+          <i class="fa fa-plus" ></i><span>&nbsp;编辑</span>
+        </span> -->
+        <span style="cursor:pointer;margin-right: 10px;" title="附件" onclick="addAttaFile()">
+          <i class="fa fa-plus" ></i><span>&nbsp;附件</span>
+        </span>
+        <span style="cursor:pointer;margin-right: 10px;" title="删除" onclick="delReturn()">
+          <i class="fa fa-times" ></i><span>&nbsp;删除</span>
+        </span>
+      <!--   <span style="cursor:pointer;margin-right: 10px;" title="审核" onclick="">
+          <i class="fa fa-edit"></i><span>&nbsp;审核</span>
+        </span>
+        <span style="cursor:pointer;margin-right: 10px;" title="打印" onclick="">
+          <i class="fa fa-print"></i><span>&nbsp;打印</span>
+        </span> -->
+         <span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload()">
+          <i class="fa fa-refresh"></i><span>&nbsp;刷新</span>
+        </span>
+      </div>
+    </div>
+    <div class="table-unbordered" id= "divResList" style="border-top-width: 1px; border-top-style: solid;border-top-color: #d0d4e0;">数据加载中...</div>    
+    <div class="panel-footer" id="divResPage"></div>
+</div>
+
+ 
+  
+
+   <!-- 弹出页面 -->
+	<div id="divPopWin" style="width:100%; height:100%; display:none">
+			<iframe frameborder="0" id="iframePopWin" name="iframePopWin" scrolling="auto" 
+			style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%"></iframe>
+	</div>	
+</body>
+</html>

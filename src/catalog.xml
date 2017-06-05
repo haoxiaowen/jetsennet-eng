@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+       <chain name="CommandChain">
+        <!-- 定义的顺序决定执行的顺序 -->
+              <command id="command1" className= "jetsennet.usermgr.avtiveldap.command.ADCreateUserCommand"/>
+       </chain>
+</catalog>

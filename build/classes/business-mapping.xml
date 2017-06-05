@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<!-- 单实例配置 -->
+	<single-config>
+		<!-- 配置文件参数驱动 -->
+		<single-item id="jetsennet.jue2.centre.driver.IConfigDriver" path="jetsennet.jue2.centre.driver.impls.ConfigDriverImpls" author="ryzhang" date="2011-12-5"/>
+		<!-- OGNL执行器 -->
+		<single-item id="jetsennet.jue2.centre.ognl.IOgnlExecutor" path="jetsennet.jue2.centre.ognl.impls.OgnlExecutorImpls" author="ryzhang" date="2011-12-7"/>
+		<!-- 业务执行器 -->
+		<single-item id="jetsennet.jue2.centre.IBusinessControllor" path="jetsennet.jue2.centre.BusinessControllor" author="ryzhang" date="2011-12-7"/>
+	</single-config>
+	<!-- 多实例配置 -->
+	<mulit-config>
+		<!--  获取控制字信息  -->
+		<mulit-item id="CTL20160617143801000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.business.ControlWordBusiness" method="getWords"  author="yyf" date="2016-06-17" object_pool="false"/>
+	
+		<!--  保存任务类型  -->
+		<mulit-item id="CTL20150322105301000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.timer.action.TimerAction" method="saveType"  author="zw" date="2016-03-22" object_pool="false"/>
+		<!--  删除任务类型  -->
+		<mulit-item id="CTL20150322105302000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.timer.action.TimerAction" method="delType"  author="zw" date="2016-03-24" object_pool="false"/>
+		<!--  更新任务类型  -->
+		<mulit-item id="CTL20150322105303000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.timer.action.TimerAction" method="updateType"  author="zw" date="2016-03-24" object_pool="false"/>
+		<!--  保存任务  -->
+		<mulit-item id="CTL20150322105304000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.timer.action.TimerAction" method="saveTask"  author="zw" date="2016-03-24" object_pool="false"/>
+		<!--  终止任务  -->
+		<mulit-item id="CTL20150322105305000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.timer.action.TimerAction" method="stopTask"  author="zw" date="2016-03-25" object_pool="false"/>
+		<!--  获取任务类型url  -->
+		<mulit-item id="CTL20150322105306000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.timer.action.TimerAction" method="getTaskTypeUrl"  author="zw" date="2016-03-31" object_pool="false"/>
+		
+		<!--  保存订单详情  -->
+		<mulit-item id="CTL20150429215801000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.trm.action.TrmAction" method="saveOrderItems"  author="zw" date="2016-04-29" object_pool="false"/>
+		<!--  根据预约单创建调度  -->
+		<mulit-item id="CTL20150429215802000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.trm.action.TrmAction" method="saveSchdule"  author="zw" date="2016-05-04" object_pool="false"/>
+		<!--  获取资源总价  -->
+		<mulit-item id="CTL20150429215803000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.trm.action.TrmAction" method="getResPrice"  author="yyf" date="2016-05-05" object_pool="false"/>
+		<!--  获取资源总价  -->
+		<mulit-item id="CTL20150429215804000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.trm.action.TrmAction" method="batchConfirm"  author="yyf" date="2016-05-06" object_pool="false"/>
+		<!--  调整排班节目  -->
+		<mulit-item id="CTL20150429215805000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.trm.action.TrmAction" method="adjustSchPgm"  author="zw" date="2016-05-12" object_pool="false"/>
+		<!--  保存资源调度，并更新资源预约详情  -->
+		<mulit-item id="CTL20150429215806000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.trm.action.TrmAction" method="saveSchduleFromItem"  author="zw" date="2016-05-05" object_pool="false"/>
+		<!-- 保存排班及辅助内容（为排班图表编辑使用）  -->
+		<mulit-item id="CTL20150429215807000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.trm.action.TrmAction" method="saveSchs2Objs"  author="zw" date="2016-05-24" object_pool="false"/>
+		
+		<!--   启动工作流   -->
+		<mulit-item id="CTL20160627142701000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="startWf"  author="zw" date="2016-07-27" object_pool="false"/>
+		<!--   启动合规流程  -->
+		<mulit-item id="CTL20160627142702000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="startHg"  author="zw" date="2016-07-31" object_pool="false"/>
+		<!--   启动合规技审流程  -->
+		<mulit-item id="CTL20160727142703000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="startQc"  author="zw" date="2016-07-31" object_pool="false"/>
+		<!--   获取节目推送目标  -->
+		<mulit-item id="CTL20160727142704000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="getDestSys"  author="zw" date="2016-07-31" object_pool="false"/>
+		<!--   启动推送流程  -->
+		<mulit-item id="CTL20160727142705000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="startOutWf"  author="zw" date="2016-07-31" object_pool="false"/>
+		<!--   启动素材入媒资流程  -->
+		<mulit-item id="CTL20160727142706000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="startClipBusiness"  author="zw" date="2016-07-31" object_pool="false"/>
+		<!--   启动蓝光直送流程  -->
+		<mulit-item id="CTL20160922150401000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="startBlueRightDSBusiness"  author="wt" date="2016-09-22" object_pool="false"/>
+		<!--   启动合规UHD技审流程  -->
+		<mulit-item id="CTL20160924171001000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="startUhdQc"  author="zw" date="2016-09-24" object_pool="false"/>
+		<!--   获取任务列表  -->
+		<mulit-item id="CTL20160924171002000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.push.ppntask.action.PpnTaskAction" method="getTsbTaskByPgm"  author="zw" date="2016-09-29" object_pool="false"/>
+		
+		<mulit-item id="CTL20160802173801000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.action.ProgramAction" method="saveOrderItems"  author="zw" date="2016-07-31" object_pool="false"/>
+		
+		<!--  获取直送技审内容  -->
+		<mulit-item id="CTL20160816201101000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.business.UE2_TurboBusiness" method="dvnGetProgramList"  author="zw" date="2016-08-16" object_pool="false"/>
+		<!--  提交技审结果   -->
+		<mulit-item id="CTL20160816201102000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.business.UE2_TurboBusiness" method="dvnCensorProgram"  author="zw" date="2016-08-16" object_pool="false"/>
+		
+		<!-- 资源使用信息统计  -->
+		<mulit-item id="CTL20161222201100000" interface="jetsennet.jue2.centre.IBusinessClass" path="jetsennet.jue2.action.AssignMentChartAction" method="getAssignMentChart"  author="wxd" date="2016-12-22" object_pool="false"/>
+		
+		
+	</mulit-config>
+	
+</config>

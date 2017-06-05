@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <style type="text/css">
+  		.table{border:solid #add9c0; border-width:1px 0px 0px 1px;}
+  	     .table td{border:solid #add9c0; border-width:0px 1px 1px 0px; padding:10px 0px;text-align:center;}
+  	     .tabletd{width:150px;}
+  	    /*  border:1px solid #F00;  border:1px solid #000000; */
+  	      .divcss5{ width:530px;padding:5px;} 
+		    .divcss5_left{ float:left;width:580px;height:400px;} 
+		    .divcss5_right{ float:right;width:580px;height:400px} 
+    </style>
+    
+    
+</head>
+<body onload="pageInit();">
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+	    		<table class="table" id="table1">
+	    			<tr>
+	    				<td class="tabletd">总时间：</td><td id="sumTime"></td>
+	    			</tr>
+	    			<tr>
+	    				<td>任务总数：</td><td id="sumRenWu"></td>
+	    			</tr>
+	    			<tr>
+	    				<td>总大小：</td><td id="sumDaXiao"></td>
+	    			</tr>
+	    			<tr>
+	    				<td>平均速度：</td><td id="sumSuDu"></td>
+	    			</tr>
+	    		</table>
+	    		<div>
+				    <div id="main" class="divcss5_left"></div> 
+				    <div  id="main1" class="divcss5_right"></div> 
+			    </div>
+    <!-- ECharts单文件引入 -->
+    <script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+    <script src="../../jetsenclient/javascript/echarts/www/js/echarts.js"></script>
+    <script type="text/javascript" src="javascript/ppnTuTaskPie.js"></script>
+</body>

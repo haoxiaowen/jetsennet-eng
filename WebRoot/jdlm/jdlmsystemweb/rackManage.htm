@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript"> 
+Layoutit("#divPageFrame", {vLayout: [46, "auto", 40]});
+</script>
+<title>Insert title here</title>
+</head>
+<body onload="pageInit();" class="panels">
+	<div id="divPageFrame" class="panel middle-panel panel-sm">
+
+		<div class="panel-heading">
+			<div class="form-group pull-left">
+				<div class="input-group input-group-xs input3">
+					<input type="text" class="form-control" id="txtRackCode"
+						onkeydown="jetsennet.keyEvent(searchRack)" placeholder="货架编码">
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-default"
+							onclick="javascript:searchRack();">
+							<span class="glyphicon glyphicon-search"></span>
+						</button>
+					</span> </input>
+				</div>
+			</div>
+
+			<div class='btn-group btn-group-sm pull-right'>
+				<span style="cursor: pointer; margin-right: 10px;" title="新建"
+					onclick="gCrud.adds();"> <i class="fa fa-plus"></i> <span>&nbsp;新建</span>
+				</span> <span style="cursor: pointer; margin-right: 10px;" title="编辑"
+					onclick="gCrud.edits();"> <i class="fa fa-pencil-square-o"></i>
+					<span>&nbsp;编辑</span>
+				</span> <span style="cursor: pointer; margin-right: 10px;" title="删除"
+					onclick="gCrud.remove();"> <i class="fa fa-times"></i> <span>&nbsp;删除</span>
+				</span> <span style="cursor: pointer; margin-right: 10px;" title="刷新"
+					onclick="document.location.reload();"> <i
+					class="fa fa-refresh"></i> <span>&nbsp;刷新</span>
+				</span>
+			</div>
+		</div>
+		<div class="table-unbordered" id="divRackList"></div>
+		<div class="panel-footer" id="divRackPage"></div>
+	</div>
+	<!-- 新增，编辑开始  -->
+	<div id="divRack" style="display: none">
+
+		<div class="tab-content">
+			<!-- 新增 -->
+			<div class="tab-pane fade in active" id="addMsg">
+				<form class="form-horizontal mg-lg">
+					<div class="form-group">
+						<label for="txt_RACK_NAME" class="col-sm-2 control-label">名称:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_NAME"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+						</div>
+						<label for="txt_RACK_STATUS" class="col-sm-2 control-label">状态:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<select class="form-control input-sm" default="1"
+									class="form-control input-sm" id="txt_RACK_STATUS"
+									validatetype="NotEmpty">
+									<option value="1" selected="selected">启用</option>
+									<option value="0">禁用</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						
+						<label for="txt_RACK_CODE" class="col-sm-2 control-label">货架编码:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_CODE"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+						</div>
+						<label for="txt_RACK_DESC" class="col-sm-2 control-label">描述:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_DESC"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="txt_RACK_LENGTH" class="col-sm-2 control-label">货架长:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_LENGTH"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+						</div>
+						<label for="txt_RACK_WIDTH" class="col-sm-2 control-label">货架宽:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_WIDTH"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="txt_RACK_HIGHTH" class="col-sm-2 control-label">货架高:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_HIGHTH"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+						</div>
+						<label for="txt_RACK_ROW_SUM" class="col-sm-2 control-label">行数:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_ROW_SUM"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+						</div>
+						
+					</div>
+					<div class="form-group">
+						
+						<label for="txt_RACK_COLUMN_SUM" class="col-sm-2 control-label">列数:</label>
+						<div class="col-sm-4">
+							<div class="input-group input-group-sm">
+								<input type="text" class="form-control" id="txt_RACK_COLUMN_SUM"
+									validatetype="NotEmpty" /> <span class="input-group-addon"
+									style="color: Red">*</span>
+							</div>
+							</div>
+							<div id = "RoomCode" >
+								<label for="txt_ROOM_CODE" class="col-sm-2 control-label">库房编码:</label>
+								<div class="col-sm-4">
+									<div class="input-group input-group-sm">
+										<select id="selectRoom"class="form-control input-sm" 
+										></select>
+										<span class="input-group-addon" style="color: Red">*</span>
+									</div>
+								</div>
+							</div>
+						</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</div>
+	<script type="text/javascript" src="javascript/rackManage.js"></script>
+</body>
+</html>

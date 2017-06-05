@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>打印出库单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- <script type="text/javascript"
+	src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script> -->
+<!-- <script type="text/javascript"
+	src="../../jetsenclient/javascript/jbase.js"></script> -->
+<!-- <script type="text/javascript" src="javascript/printOut.js"></script> -->
+
+<style type="text/css">
+
+
+.tablecontent  {border-collapse:collapse;border-spacing:0;}
+.tablecontent td{text-align: center;font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tablecontent tleft{text-align: left}
+.tablecontent tcenter{text-align: center}
+.tablecontent tright{text-align: right}
+
+.toptitle  {border-collapse:collapse;border-spacing:0;}
+
+.toptitle .tg-ejlg{font-weight:bold;font-size:26px;text-align:center}
+
+</style>
+</head>
+<body onload="pageInit();" >
+	<input type="button" value="添加" onclick='addNewRow()'/>
+	<input type="button" value="合计" onclick='addLastRow()'/>
+	<div id="divContent" align="center">
+	<div>
+		<table class="toptitle" style="margin-top:5px;margin-left:5px;undefined;table-layout: fixed;">
+				<colgroup>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 60px"/>
+				<col style="width: 140px"/>
+				</colgroup>
+			  <tr>
+			    <th class="tg-ejlg" colspan="7">综合制作云设备出库单</th>
+			  </tr>
+			  <tr>
+			  	<td></td>
+			  	<td ></td>
+			  	<td ></td>
+			  	<td ></td>
+			  	<td ></td>
+			  	<td style="text-align: center;font-size:12px">出库单号</td>
+			  	<td style="text-align: center" id="outNo"></td>
+			  </tr>
+			   <tr>
+			  	<td ></td>
+			  	<td ></td>
+			  	<td ></td>
+			  	<td ></td>
+			  	<td ></td>
+			  	<td style="text-align: center;font-size:12px" >出库时间</td>
+			  	<td style=" text-align: center" id="outTime"></td>
+			  </tr>
+		</table>
+	</div>
+	<div>
+		<table  id="outdev" class="tablecontent">
+				<colgroup>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 100px"/>
+				<col style="width: 50px"/>
+				<col style="width: 50px"/>
+				<col style="width: 100px"/>
+				</colgroup>
+			  <tr>
+			  	<td rowspan="2">人员信息</td>
+			    <td >姓名</td>
+			    <td ><span id="username">胡晓娜</span></td>
+			    <td >电话</td>
+                <td ><span id="mobilephone">13800000000</span></td>
+                <td   >栏目</td>
+                <td  colspan='2' ><span id="cdmcolumn">新闻10分钟</span></td>
+			  </tr>
+			  <tr>
+			    <td >工号</td>
+			    <td ><span id="usercode">00303440</span></td>
+			    <td >使用地点</td>
+                <td ><span id="useplace">北京</span></td>
+                <td >部门</td>
+                <td  colspan='2'><span id="userdept">录制二部</span></td>
+			  </tr>
+			  <tr>
+			  	<td colspan='2'>设备名称</td>
+			    <td >规格型号</td>
+			    <td >归还日期</td>
+                <td >是否续借</td>
+                <td >数量</td>
+			    <td colspan='2'>备注</td>
+			  </tr>
+			  <!-- <tr>
+			    <td style="text-align: left" colspan='2'>移动非编1</td>
+			    <td>NR23435</td>
+			    <td>2011-11-11</td>
+			    <td>否</td>
+			    <td>1</td>
+			    <td colspan='2'>背包*1  鼠标*1  电源*1</td>
+			  </tr>
+			  <tr>
+			    <td style="text-align: left" colspan='2'>移动非编2</td>
+			    <td>NR23435</td>
+			    <td>2011-11-11</td>
+			    <td>否</td>
+			    <td>1</td>
+			    <td colspan='2'>背包*1  鼠标*1  电源*1</td>
+			  </tr>
+			  <tr>
+			    <td colspan='2'>合计</td>
+			    <td colspan='3'></td>
+			    <td>2</td>
+			    <td colspan='2'></td>
+			  </tr> -->
+			</table>
+	</div>
+	<div>
+		<table style="margin-top:10px;margin-left:5px;undefined;">
+				<colgroup>
+				<col style="width: 116px"/>
+				<col style="width: 116px"/>
+				<col style="width: 116px"/>
+				<col style="width: 116px"/>
+				<col style="width: 116px"/>
+				<col style="width: 116px"/>
+				</colgroup>
+			  <tr>
+			  	<td style="text-align: right" >领用人:</td>
+			  	<td  ></td>
+			  	<td style="text-align: right">电话:</td>
+			  	<td  ></td>
+			  	<td style="text-align: right">经办人:</td>
+			  	<td  ></td>
+			  </tr>
+		</table>
+	</div>
+	</div>
+</body>
+</html>

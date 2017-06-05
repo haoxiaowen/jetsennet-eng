@@ -1,0 +1,291 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>入库申请单</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript"
+	src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript" src="javascript/tableForReturnDetail.js"></script>
+<script type="text/javascript" src="javascript/rentReturnDetail.js"></script>
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:none;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-s6z2{text-align:center}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-nudq{color:#000000;text-align:center}
+.tg .tg-yw4l{vertical-align:top}
+.tg .tg-ejlg{font-weight:bold;font-size:26px;text-align:center}
+.tg .tg-border-left{border-left:solid;border-width:1px;}
+.tg .tg-border-right{border-right:solid;border-width:1px;}
+.tg .tg-border-top{border-top:solid;border-width:1px;}
+.tg .tg-border-bottom{border-bottom:solid;border-width:1px;}
+
+
+.tgtbl  {border-collapse:collapse;border-spacing:0;}
+.tgtbl td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tgtbl th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+
+.checktbl  {border-collapse:collapse;border-spacing:0;}
+.checktbl th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-top:solid;border-bottom:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.checktbl.tg-border-left{border-left:solid;border-width:1px;}
+.checktbl.tg-border-right{border-right:solid;border-width:1px;}
+.checktbl.tg-border-top{border-top:solid;border-width:1px;}
+.checktbl.tg-border-bottom{border-bottom:solid;border-width:1px;}
+
+.returntg  {border-collapse:collapse;border-spacing:0;}
+.returntg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:none;border-width:1px;overflow:hidden;word-break:normal;}
+.returntg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.returntg .tg-ejlg{font-weight:bold;font-size:26px;text-align:center}
+.returntg .tg-border-left{border-left:solid;border-width:1px;}
+.returntg .tg-border-right{border-right:solid;border-width:1px;}
+</style>
+</head>
+<body onload="pageInit();" >
+	<!-- <div>
+	<a href="javascript:void(0)" onclick="saveReturnlist()">提交</a>
+	<a href="javascript:void(0)" onclick="goParent()">返回</a>
+	</div> -->
+	<div>
+		<!-- <input type="button" value="getInfo" onclick="getInfo()"/>
+		<input type="button" value="getTableSize" onclick="getTableSize()"/> -->
+		<input type="button" class="btn btn-danger btn-sm"  id ="btnFormOut" value="返回" onclick="goParent()"/>
+		<input type="button" class="btn btn-success btn-sm margin-bottom-xs"  id ="btnFormOut" value="从出库单导入" onclick="gOutResCrud.showNormallSelectDlg('divSelectOutRes', 'selectOutRes')"/>
+		<input type="button" class="btn btn-primary btn-sm margin-bottom-xs"  id ="btnFormOut" value="提交" onclick="saveReturnlist()"/>
+	</div>
+	<div id="divContent">
+	<div>
+		<table class="returntg" style="margin-top:5px;margin-left:5px;undefined;table-layout: fixed;">
+				<colgroup>
+				<col style="width: 85px"/>
+				<col style="width: 186px"/>
+				<col style="width: 123px"/>
+				<col style="width: 256px"/>
+				</colgroup>
+			  <tr>
+			    <th class="tg-ejlg" colspan="4">资源入库申请单</th>
+			  </tr>
+			  <tr>
+			    <td class="tg-border-left">入库编号：</td>
+			    <td class="input-group input-group-sm"><input class="form-control"  id="RETU_CODE"/><span class="input-group-addon" style="color: Red">*</span></td>
+			    <td>入库时间：</td>
+			    <td  class="tg-border-right "><input class="form-control selectdate" onclick="jetsennet.pickDate(this, true)"id="RETU_TIME"/></td>
+			  </tr>
+			  <tr>
+			    <td class="tg-border-left">入库栏目：</td>
+			    <td class="input-group input-group-sm"><input validatetype="NotEmpty" class="form-control" onclick="gColumnCrud.showNormallSelectDlg('divSelectColumn', 'selectColumn',{size : {width : 500, height : 400}},this)" id="RETU_COLUMN_CODE"/><span class="input-group-addon" style="color: Red">*</span><input id="hid_RETU_COLUMN_CODE" type="hidden"/></td>
+			    <td></td>
+			    <td class="tg-border-right"></td>
+			  </tr>
+			  <tr>
+			    <td class="tg-border-left">入库人员：</td>
+			    <td class="input-group input-group-sm"><input validatetype="NotEmpty"  class="form-control" onclick="gUserCrud.showNormallSelectDlg('divSelectUser', 'selMember',{size : {width : 500, height : 400}},this)" id="RETU_MANAGE_USER"/><span class="input-group-addon" style="color: Red">*</span></td>
+			    <td class="tg-031e">入库部门：</td>
+			    <td  class="tg-border-right input-group input-group-sm"><input validatetype="NotEmpty" class="form-control" onclick="gDeptCrud.showNormallSelectDlg('divSelectDept', 'selectDept',{size : {width : 500, height : 400}},this)" id="RETU_DEPT_CODE"/><span class="input-group-addon" style="color: Red">*</span><input id="hid_RETU_DEPT_CODE" type="hidden"/></td>
+			  </tr>
+			  <tr>
+			    <td class="tg-border-left">入库内容：</td>
+			  	<td class="tg-border-right " colspan="3"><input class="btn btn-info btn-sm margin-bottom-xs" id ="btnFormRes" type="button" value="添加入库资源" onclick="gResObjCrud.showNormallSelectDlg('divSelectResObj', 'selectResObj')"/></td>
+			  </tr>
+		</table>
+	</div>
+	<div>
+		<div style=" float:left " id="divdetail" ></div>
+		<div style=" float:left " id="divresdetail" ></div>
+		<div>
+			<table class="checktbl" style="margin-top:0px;margin-left:5px;undefined;table-layout: fixed; width: 650px">
+						<colgroup>
+						<col style="width: 85px"/>
+						<col style="width: 186px"/>
+						<col style="width: 123px"/>
+						<col style="width: 256px"/>
+						</colgroup>
+					  <tr>
+					    <th style="border-left:solid;border-width:1px;"class="tg-border-left">复核人员：</th>
+					    <th ><input class="form-control " id="RETU_CHECK_USER"/></th>
+					    <th >复核时间：</th>
+					    <th style="border-right:solid;border-width:1px;" ><input class="form-control selectdate" onclick="jetsennet.pickDate(this, true)" id="RETU_CHECK_TIME"/></th>
+					  </tr>
+			</table>
+		</div>
+	</div>
+	</div>
+	<div  style ="display:none" id="divoutdetail">
+		<table style ="display:none" id ='tbdemo' class="tg" style="undefined;table-layout: fixed; width: 773px">
+			<colgroup>
+			<col style="width: 85px"/>
+			<col style="width: 103px"/>
+			<col style="width: 103px"/>
+			<col style="width: 103px"/>
+			<col style="width: 83px"/>
+			<col style="width: 31px"/>
+			<col style="width: 142px"/>
+			<col style="width: 67px"/>
+			<col style="width: 58px"/>
+			</colgroup>
+			<tr>
+			    <th class="tg-border-left tg-border-top" rowspan="7"><span id="resnum"/> </th>
+			    <th class="tg-border-left tg-border-top">资源序列号：</th>
+			    <th class="tg-border-top" colspan="2"><input class="form-control"name="resno" type="text"/></th>
+			    <th class="tg-border-top">资源名称：</th>
+			    <th class="tg-baqh tg-border-right tg-border-top" colspan="2"><input class="form-control" name="resname" type="text"/></th>
+			    <th class="tg-nudq" rowspan="7"><a href="javascript:void(0)" onclick="view_table(this)">查看<br>出库<br>情况</a></th>
+			    <th class="tg-nudq" rowspan="7"><a href="javascript:void(0)" onclick="del_table(this)">删除</a></th>
+			  </tr>
+			  <tr>
+			  	<input name="hid_ITEM_OBJ_TYPE" type="hidden"/>
+			  	<input name="hid_ITEM_OBJ_NUM" type="hidden"/>
+			  	<input name="hid_ITEM_OBJ_UOM" type="hidden"/>
+			  	<input name="hid_ITEM_OBJ_UOM_SUM" type="hidden"/>
+			  	<input name="hid_ITEM_OBJ_PRICE" type="hidden"/>
+			  	<input name="hid_ITEM_OBJ_DESC" type="hidden"/>
+			  	<input name="hid_ITEM_OBJ_CURRENCY" type="hidden"/>
+			  	<input name="hid_ITEM_OBJ_SPECS" type="hidden"/>
+			    <td class="tg-border-left">检查项：</td>
+			    <td class="tg-031e">比较出库前</td>
+			    <td class="tg-031e">检查结果</td>
+			    <td class="tg-border-right" style="text-align: center" colspan="3">检查说明</td>
+			  </tr>
+			  <tr>
+			    <td class="tg-border-left ">外观及包装：</td>
+			    <td class="tg-yw4l"><input type="radio" id="outcompare01" name="outcompare" value="1" checked/>相符<br/><input type="radio" id="outcompare02" value="0" name="outcompare"/>不相符</td>
+			    <td class="tg-yw4l"><input type="radio" id="outchekresult01" name="outchekresult" value="1"  checked/>通过<br/><input type="radio" id="outchekresult02" value="0"  name="outchekresult"/>不通过</td>
+			    <td class="tg-yw4l tg-border-right" colspan="3"><input class="form-control" name="outresdepict" type="text"/></td>
+			  </tr>
+			  <tr>
+			    <td class="tg-border-left">技术规格：</td>
+			    <td class="tg-yw4l"><input type="radio" name="incompare" id="incompare01" value="1"checked/>相符<br/><input type="radio" name="incompare" id="incompare02" value="0" />不相符</td>
+			    <td class="tg-yw4l"><input type="radio" name="inchekresult" id="inchekresult01" value="1" checked />通过<br/><input type="radio" name="inchekresult" id="inchekresult02" value="0" />不通过</td>
+			    <td class="tg-yw4l tg-border-right" colspan="3"><input class="form-control" name="inresdepict" type="text"/></td>
+			  </tr>
+			  <tr>
+			  	<td class="tg-border-left">入库结果：</td>
+			    <td  class="tg-border-right" colspan="5"><input type="radio" id="backresult01" value="1" name="backresult" checked/>入库<input type="radio" name="backresult" id="backresult02" value="2"  />保养<input type="radio" name="backresult" id="backresult03" value="3" />维修<input type="radio" name="backresult" id="backresult04" value="4"  />作废<input type="radio" name="backresult" id="backresult05" value="5" />丢失<input type="radio" name="backresult" id="backresult06" value="0"  />待定</td>
+			    
+			  </tr> 
+			  <tr>
+			  	<td class="tg-border-left">入库备注：</td>
+			    <td class="tg-border-right" colspan="5"><input class="form-control" name ="backdepict" type="text"/></td>
+			  </tr>
+			  <tr>
+			  	<td class="tg-border-left ">检验人员：</td>
+			    <td class="" colspan="2"><input class="form-control" onclick="gUserCrud.showNormallSelectDlg('divSelectUser', 'selMember',{size : {width : 500, height : 400}},this)" name="checkuser" type="text"/></td>
+			    <td class="">检验时间：</td>
+			    <td class="tg-yw4l tg-border-right " colspan="2"><input class="form-control selectdate" onclick="jetsennet.pickDate(this, true)"  name="checktime" type="text"/></td>
+			  </tr>  
+		</table>
+		<table style ="display:none visibility:"  id="resdemo"class="tgtbl" style="undefined;table-layout: fixed; width: 575px">
+				<colgroup>
+				<col style="width: 153.2px"/>
+				<col style="width: 135.2px"/>
+				<col style="width: 129.2px"/>
+				<col style="width: 157.2px"/>
+				</colgroup>
+			  <tr>
+			    <th class="tg-031e">资源序列号：</th>
+			    <th class="tg-031e"><input class="form-control" name="ITEM_OBJ_KEY" type="text"/></th>
+			    <th class="tg-031e">资源数量：</th>
+			    <th class="input-group input-group-sm"><input validatetype="NotEmpty,uinteger" class="form-control" name="ITEM_OBJ_NUM" type="text"/><span class="input-group-addon" style="color: Red">*</span></th>
+			  </tr>
+			  <tr>
+			    <td class="tg-031e">资源名称：</td>
+			    <td class="tg-031e"><input class="form-control" name="res_Name" type="text"/></td>
+			    <td class="tg-031e">资源规格：</td>
+			    <td class="tg-031e"><input class="form-control" name="res_Type" type="text"/></td>
+			  </tr>
+			  <tr>
+			    <td class="tg-031e">资源型号：</td>
+			    <td class="tg-031e"><input class="form-control" name="res_Model" type="text"/></td>
+			    <td class="tg-031e">出库人员：</td>
+			    <td class="tg-031e"><input class="form-control" name="OUT_KEEPER" type="text"/></td>
+			  </tr>
+			  <tr>
+			    <td class="tg-031e" rowspan="2">出库说明：</td>
+			    <td class="tg-031e" colspan="3" rowspan="2"><input class="form-control" name="ITEM_OBJ_DESC" type="text"/></td>
+			  </tr>
+			  <tr>
+			  </tr>
+			</table>
+	</div>
+  <!-- 选择出库单开始  -->
+  <div id="divSelectOutRes" style="display: none;height:100%;">
+    <div id="divSelectOutResList" style="height:100%;"></div>
+  </div>
+  <!-- 选择出库单结束  -->
+    <!-- 选择资源开始  -->
+  <div id="divSelectResObj" style="display: none;height:100%;">
+    <div id="divSelectResObjList" style="height:100%;"></div>
+  </div>
+  <!-- 选择资源结束  -->
+  <!-- 选择用户开始 -->
+  <div id="divSelectUser" style="display: none">
+  	<div>
+	  	<div class="center-wrapper">
+			<div class="center-area">
+			    <form class="form-inline">
+			      <span>用户姓名:</span>
+			      <div class="form-group">
+			        <input id="txtUserName" type="text" class="form-control input-xs" style="width: 120px;" />
+			      </div>
+			      <span class="margin-left-md">登录名称:</span>
+			      <div class="form-group">
+			        <input id="txtLoginName" type="text" class="form-control input-xs" style="width: 120px;" />
+			      </div>
+			      <button type="button" class="btn btn-primary btn-xs" style="margin-left: 10px;" onclick="searchSelectUserData();">
+			        <span class="glyphicon glyphicon-search"></span> 查询
+			      </button>
+			    </form>
+		    </div>
+	    </div>
+    </div>
+    <div id="divSelectUserList">数据正在加载...</div>
+    <div id="divSelectUserPage" style="padding-top: 5px;"></div>
+  </div>
+  <!-- 选择用户结束 -->
+    <!-- 选择栏目开始 -->
+  <div id="divSelectColumn" style="display: none">
+  	<div>
+	  	<div class="center-wrapper">
+			<div class="center-area">
+			    <form class="form-inline">
+			      <span>栏目:</span>
+			      <div class="form-group">
+			        <input id="txtColumnName" type="text" class="form-control input-xs" style="width: 120px;" />
+			      </div>
+			      <button type="button" class="btn btn-primary btn-xs" style="margin-left: 10px;" onclick="searchSelectColumnData();">
+			        <span class="glyphicon glyphicon-search"></span> 查询
+			      </button>
+			    </form>
+		    </div>
+	    </div>
+    </div>
+    <div id="divSelectColumnList">数据正在加载...</div>
+    <div id="divSelectColumnPage" style="padding-top: 5px;"></div>
+  </div>
+  <!-- 选择用户结束 -->
+  <!-- 选择部门开始 -->
+  <div id="divSelectDept" style="display: none">
+  	<div>
+	  	<div class="center-wrapper">
+			<div class="center-area">
+			    <form class="form-inline">
+			      <span>部门:</span>
+			      <div class="form-group">
+			        <input id="txtDeptName" type="text" class="form-control input-xs" style="width: 120px;" />
+			      </div>
+			      <button type="button" class="btn btn-primary btn-xs" style="margin-left: 10px;" onclick="searchSelectDeptData();">
+			        <span class="glyphicon glyphicon-search"></span> 查询
+			      </button>
+			    </form>
+		    </div>
+	    </div>
+    </div>
+    <div id="divSelectDeptList">数据正在加载...</div>
+    <div id="divSelectDeptPage" style="padding-top: 5px;"></div>
+  </div>
+  <!-- 选择部门结束 -->
+</body>
+</html>

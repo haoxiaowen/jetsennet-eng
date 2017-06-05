@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>选择资源</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script type="text/javascript"
+			src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript"
+			src="../../jetsenclient/javascript/jbase.js"></script>
+				<script type="text/javascript">
+			Layoutit("#divPageFrame", {vLayout: [46, "auto", 40]});
+			
+		</script>
+	</head>
+	<body onload="pageInit();" class="panels">
+		<div id="divPageFrame" class="panel middle-panel panel-sm">
+			<div class="panel-heading">
+				<div class="form-group pull-left">
+					<div class="input-group input-group-xs input3">
+						<input type="text" class="form-control" id="txtMsg"
+							onkeydown="jetsennet.keyEvent(searchCnd)" placeholder="资源名称">
+						<span class="input-group-btn">
+							<button type="submit" class="btn btn-default"
+								onclick="javascript:searchCnd();">
+								<span class="glyphicon glyphicon-search"></span>
+							</button>
+						</span> </input>
+					</div>
+				</div>	
+			</div>	
+			<div id="divObjList" class="table-unbordered"></div>
+			<div class="panel-footer" id="divObjPage"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="javascript/objIframe.js"></script>
+</html>

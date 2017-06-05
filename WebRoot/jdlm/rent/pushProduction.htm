@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>推送事件</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript" src="javascript/pushProduction.js"></script>
+<style type="text/css">
+.daterangepicker .ranges {
+  width: 255px;
+  text-align: left;
+}
+.daterangepicker .ranges .range_inputs>div {
+  float: left;
+  width: 100px;
+}
+.daterangepicker .ranges .range_inputs>div:nth-child(2) {
+  padding-left: 11px;
+  width: 100px;
+}
+.daterangepicker .daterangepicker_start_input label,
+.daterangepicker .daterangepicker_end_input label {
+  width: 120px;
+}
+.daterangepicker_end_input{
+	margin-left: 15px;
+}
+.daterangepicker .ranges .input-mini {
+  width: 122px;
+}
+</style>
+</head>
+<body onload="pageInit();" class="panels">
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+    <!--  列表  -->
+    <div class="panel-heading" style="background-color : #eff3f6;">
+    	<!--  所搜框  -->
+    	<div class="form-group pull-left">
+	      <!-- <div class="input-group input-group-xs input4">
+            <input type="text" class="form-control" id="txt_RES_NAME" onkeydown="jetsennet.keyEvent(searchPush)" placeholder="节目名称/节目编码">
+	           <span class="input-group-btn">
+	             <button type="submit" class="btn btn-default" onclick="javascript:searchPush();"><span class="glyphicon glyphicon-search"></span></button>
+	           </span>
+	         </input>
+	      </div> -->
+		         节目名称/节目编码: <input type="text" id="txt_RES_NAME" style="width: 20"></input>
+		         推送类型：<select id="txt_transType" default="3,4,5,6">
+		         <option value="3,4,5,6" selected="selected">全部</option>
+                <option value="3">出岛</option>
+                <option value="4">接收</option>
+                <option value="5">入媒资</option>
+                <option value="6">入资料柜</option>
+              </select>
+              目标类型：<select id="txt_targetType" default="">
+		        <option value="" selected="selected">全部</option>
+                <option value="1">媒资备播</option>
+                <option value="2">制作岛间</option>
+                <option value="4">文件直送</option>
+                <option value="5">蓝光直送</option>
+              </select>
+		         开始时间: <input type="text" class="selectdate"id="txtStartTime" onclick="jetsennet.pickDate(this, true)"style="width: 20"/>
+		         结束时间: <input type="text" class="selectdate"id="txtEndtTime" onclick="jetsennet.pickDate(this, true)"style="width: 20"/>
+		     <button type="submit"  onclick="searchPush();">	<span class="glyphicon glyphicon-search"></span>	</button>
+	      
+      	</div>
+    
+      <div class='btn-group btn-group-sm pull-right'>
+      
+	     <span style="cursor:pointer;margin-right: 10px;" title="导出" onclick="exportExcel()">
+	         <i class="fa fa-print"></i><span>&nbsp;导出</span>
+	     </span>
+	     <!-- <span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="gShowCrud.showDlg('divShow',{title:'事件统计',size:{ width : 240,height : 300}})">
+          <i class="fa fa-refresh"></i><span>&nbsp;统计</span>
+        </span> -->
+        <span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="showPie()">
+          <i class="fa fa-refresh"></i><span>&nbsp;统计</span>
+        </span>
+         <span style="cursor:pointer;margin-right: 10px;" title="刷新" onclick="document.location.reload()">
+          <i class="fa fa-refresh"></i><span>&nbsp;刷新</span>
+        </span>
+      </div>
+    </div>
+    <div class="table-unbordered" id= "divResList" style="border-top-width: 1px; border-top-style: solid;border-top-color: #d0d4e0;">数据加载中...</div>    
+    <div class="panel-footer" id="divResPage"></div>
+</div>
+
+
+   <!-- 弹出页面 -->
+	<div id="divPopWin" style="width:100%; height:100%; display:none">
+			<iframe frameborder="0" id="iframePopWin" name="iframePopWin" scrolling="auto" 
+			style="z-index:0;border:0px;left:0px;right:0px;top:0px;bottom:0px;width:100%;height:100%"></iframe>
+	</div>
+	
+  <div id="divShow" style="display: none;height:100%;">
+  <div id="divShowList" style="height:100%;"></div>
+  </div>	
+</body>
+</html>

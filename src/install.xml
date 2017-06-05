@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<setting> 
+  <property name="axtype">SqlServer</property>  
+  <param name="dbtype" desc="数据库类型" tips="SQLServer或者Oracle">sqlserver</param>  
+  <param name="dbserverip" desc="数据库IP">198.9.1.111</param>  
+  <param name="dbname" desc="数据库名称">UUMTest</param>  
+  <param name="username" desc="数据库用户">sa</param>  
+  <param name="password" desc="数据库密码">1</param>  
+  <param name="tomcathome" desc="Tomcat目录"></param>  
+  <folder path="WEB-INF/classes"> 
+    <file path="dbconfig.properties" type="properties"> 
+      <node name="driver" ref="${DBDriver}"/>  
+      <node name="dburl" ref="${DBUrl}"/>  
+      <node name="dbuser" ref="username"/>  
+      <node name="dbpwd" ref="password"/> 
+    </file> 
+  </folder> 
+</setting>

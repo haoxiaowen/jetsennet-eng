@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="jetsennet-eng" default="package">
+	<property name="version" value="V1.0" />
+	<property name="tomcat.home" value="D:\apache-tomcat-6.0.10" />
+
+	<property name="war.target.dir" value="${basedir}/发布/${ant.project.name}${version}/WebRoot/" />
+	<property name="default.target.dir" value="发布/${ant.project.name}${version}" />
+	<property name="JDVN.source.dir" value="${basedir}/src" />
+	<property name="JDVN.lib.dir" value="${basedir}/WebRoot/WEB-INF/lib" />
+	<property name="JDVN.classes.dir" value="${basedir}/WebRoot/WEB-INF/classes" />
+	<property name="temp.source.dir" value="${basedir}/temp"/>
+
+	<target name="init">
+		<delete dir="${JDVN.classes.dir}" />
+		<mkdir dir="${JDVN.classes.dir}" />
+		<path id="JDVN.buildpath">
+			<fileset dir="${JDVN.lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${tomcat.home}/lib">
+				<include name="**/*.jar" />
+			</fileset>
+		</path>
+	</target>
+
+	<target name="compile-source" depends="init" >
+		<delete dir="${temp.source.dir}" />
+		<mkdir dir="${temp.source.dir}" />
+		<copy todir="${temp.source.dir}" overwrite="on">
+			<fileset dir="${JDVN.source.dir}">
+			</fileset>
+		</copy>
+		<javac failonerror="true" debug="true" debuglevel="source,lines,vars" destdir="${JDVN.classes.dir}" source="1.6" encoding="UTF-8">
+			<src path="${temp.source.dir}"/>
+			<classpath refid="JDVN.buildpath"/>
+		</javac>
+		<copy todir="${JDVN.classes.dir}">
+			<fileset dir="${temp.source.dir}">
+				<include name="*.xml" />
+				<include name="*.properties" />
+			</fileset>
+		</copy>
+
+		<delete dir="${temp.source.dir}" />
+	</target>
+
+	<target name="release" depends="compile-source">
+		<delete dir="${default.target.dir}" />
+		<mkdir dir="${default.target.dir}" />
+
+		<copy todir="${default.target.dir}/dbscript">
+			<fileset dir="dbscript">
+			</fileset>
+		</copy>
+		<copy todir="${default.target.dir}/WebRoot">
+			<fileset dir="WebRoot" excludes="**/*.java">
+			</fileset>
+		</copy>
+		<copy todir="${default.target.dir}/版本说明">
+			<fileset dir="版本说明">
+			</fileset>
+		</copy>
+		
+		<delete dir="${JDVN.classes.dir}" />
+	</target>
+	
+	<target name="deploy" depends="release">
+			<delete dir="${tomcat.home}/webapps/JDVN" />
+			<mkdir dir="${tomcat.home}/webapps/JDVN" />
+			<copy todir="${tomcat.home}/webapps/JDVN">
+				<fileset dir="${default.target.dir}/WebRoot">
+				</fileset>
+			</copy>
+		</target>
+
+	<target name="package" depends="deploy" description="Packages the JARs, WARs and EARs">
+        <ant antfile="packaging-build.xml" />
+    </target>
+</project>

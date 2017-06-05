@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>选择人员</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript" src="javascript/getUser.js"></script>
+</head>
+<body onload="pageInit();" class="panels">
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+	<div id="divLeft">
+	    <div class="panel-heading">
+	    	<!--  所搜框  -->
+	    	<div class="form-group pull-left">
+		      <div class="input-group input-group-xs input3">
+	            <input type="text" class="form-control" id="txt_NAME" onkeydown="jetsennet.keyEvent(searchUser)" placeholder="工号/登录名/用户名">
+		           <span class="input-group-btn">
+		             <button type="submit" class="btn btn-default" onclick="javascript:searchUser();"><span class="glyphicon glyphicon-search"></span></button>
+		           </span>
+		         </input>
+		      </div>
+	      	</div>
+	    </div>
+	    <div class="table-unbordered" id= "divUserList">数据加载中...</div>    
+	    <div class="panel-footer" id="divUserPage"></div>
+	</div>
+    <div id="divRight">
+	    <select id="nameList" style="width:150px;" size="18">
+	    </select>
+	    <button type="button" onclick="javascript:addUser();">添加</button>
+	    <button type="button" onclick="javascript:deleteUser();">删除</button>
+    </div>
+</div>
+</body>
+</html>

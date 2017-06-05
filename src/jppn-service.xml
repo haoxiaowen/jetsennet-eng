@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://cxf.apache.org/jaxrs
+	http://cxf.apache.org/schemas/jaxrs.xsd 
+	http://cxf.apache.org/jaxws 
+	http://cxf.apache.org/schemas/jaxws.xsd">
+	
+	
+	<bean id="ppnBusiness" class="jetsennet.jue2.business.PpnBusiness" />
+	
+	<!-- Ppn基础服务类   -->
+	<bean id="ppnBaseService" class="jetsennet.jue2.services.in.PpnBaseService" />
+	
+	<!-- PpnService -->
+	<bean id="PpnService" class="jetsennet.jue2.services.in.PpnService" parent="ppnBaseService" />
+	<bean id="PpnServiceIn" class="jetsennet.jue2.services.in.PpnServiceIn" parent="ppnBaseService" >
+		<property name="ppnBusiness" ref="ppnBusiness" />
+	</bean>
+	
+	
+
+</beans>

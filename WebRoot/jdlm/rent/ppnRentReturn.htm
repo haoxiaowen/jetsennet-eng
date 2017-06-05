@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>功能管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+<script type="text/javascript">
+	Layoutit("#divPageFrame", {vLayout: [46, "auto", 40]});
+</script>
+<style type="text/css">
+.daterangepicker .ranges {
+  width: 255px;
+  text-align: left;
+}
+.daterangepicker .ranges .range_inputs>div {
+  float: left;
+  width: 100px;
+}
+.daterangepicker .ranges .range_inputs>div:nth-child(2) {
+  padding-left: 11px;
+  width: 100px;
+}
+.daterangepicker .daterangepicker_start_input label,
+.daterangepicker .daterangepicker_end_input label {
+  width: 120px;
+}
+.daterangepicker_end_input{
+	margin-left: 15px;
+}
+.daterangepicker .ranges .input-mini {
+  width: 122px;
+}
+</style>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="../../jetsenclient/javascript/bootstrap/html5shiv.min.js"></script> 
+  <script src="../../jetsenclient/javascript/bootstrap/respond.min.js"></script> 
+<![endif]-->
+</head>
+<body onload="pageInit();" class="panels">
+
+<div id="divPageFrame" class="panel middle-panel panel-sm">
+  
+    <!-- 右边头部 -->
+    		<div class="panel-heading">
+    		 <div class="pull-left input4" id="divNavigation"></div>
+    			<div class="input-group input-group-xs pull-left input7">
+	            	<form class="form-inline margin-bottom-sm">
+				      <span class="margin-left-md">计划时间:</span>
+						<div class="input-group">
+							<input class="input-group-sm search" type="text" readonly id="log_time" style="width:270px">
+						   	<span class="glyphicon glyphicon-remove" id="clearTime" style="margin-left:-20px;" onclick="clearTime();"></span>
+						</div>
+				      <button type="button" class="btn btn-primary btn-xs" onclick="searchConfirm();">
+				        <span class="glyphicon glyphicon-search"></span> 查询
+				      </button>
+			    	</form>
+    			</div>
+			       <span style="cursor:pointer;margin-left: 10px;" title="导出" onclick="exportExcel();">
+			          <i class="glyphicon glyphicon-save"></i>
+			          <span>&nbsp;导出</span>
+			        </span>
+            	</div>
+    	
+
+    <div class="table-unbordered" id= "divContent">数据加载中...</div>
+    
+    <div class="panel-footer" id="divPage"></div>
+</div>
+<script type="text/javascript" src="javascript/ppnRentReturn.js"></script>  
+</body>
+</html>

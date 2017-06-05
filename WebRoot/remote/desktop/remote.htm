@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>remote desktop</title>
+<script type="text/javascript" src="../../jetsenclient/javascript/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../jetsenclient/javascript/jbase.js"></script>
+</head>
+<body>
+ 	<input type="checkbox" id="chkCtl"/>
+ 	<button onclick="begin()">begin</button>
+	<canvas id="contents" tabindex="-1" width="100" height="100" >不支持HTML5</canvas>
+</body>
+<script type="text/javascript" src="js/remote_desktop.js"></script>
+<script type="text/javascript">
+jetsennet.require(["pageframe", "window", "gridlist", "pagebar","timeeditor","datepicker", "tabpane", "validate", "crud"]);
+var devIp = jetsennet.queryString("dev_ip");
+var devPort = jetsennet.queryString("dev_port");
+//alert(devIp + "----" + devPort);
+
+var canvas = document.getElementById("contents");
+var view = new RemoteDesktop.View(canvas,devIp,devPort);
+view.init("ws://10.121.164.21:8080/remotedesktop/websocket");//server
+
+function begin(){
+	var ctrl = document.getElementById("chkCtl");
+	view.requestRemoteDesktopService();
+	if(ctrl.checked){
+		view.enableEvent = true;
+	}
+}
+
+function logout(){
+	//alert("logout");
+	view.logout();
+}
+</script>
+</html>
