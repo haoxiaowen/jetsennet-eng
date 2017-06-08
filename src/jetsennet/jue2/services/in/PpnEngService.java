@@ -50,9 +50,9 @@ public class PpnEngService extends BaseService {
      */
 	@POST
 	@Path(value = "/getDevInfo")
-	public  WSResult getDevInfo(@FormParam("devCode") String devCode) throws Exception
+	public  WSResult getDevInfo(@FormParam("devCode")String devCode, @FormParam("reqId")String reqId) throws Exception
 	{
-		return getResult(PpnEngBusiness.getDevInfo(devCode));
+		return getResult(PpnEngBusiness.getDevInfo(devCode,reqId));
 	}
 	
 	/**
@@ -61,9 +61,9 @@ public class PpnEngService extends BaseService {
      */
 	@POST
 	@Path(value = "/getGpsInfo")
-	public  WSResult getGpsInfo(@FormParam("devCode") String devCode) throws Exception
+	public  WSResult getGpsInfo(@FormParam("devCode")String devCode,@FormParam("reqId")String reqId) throws Exception
 	{
-		return getResult(PpnEngBusiness.getGpsInfo(devCode));
+		return getResult(PpnEngBusiness.getGpsInfo(devCode,reqId));
 	}
 	
 	/**

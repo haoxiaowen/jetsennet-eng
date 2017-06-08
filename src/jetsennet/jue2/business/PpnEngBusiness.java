@@ -40,6 +40,7 @@ public class PpnEngBusiness extends BaseBusiness
 	private String redisIp = SshInfo.redisIp;
 	private int redisPort = Integer.parseInt(SshInfo.redisPort);
 	private String redisPassword = SshInfo.redisPassword;
+	private static final int TIME_OUT = 10000;
 	private int index = 0;
 	
 	/**
@@ -53,8 +54,6 @@ public class PpnEngBusiness extends BaseBusiness
 		//req.accumulate("CtlCode", "00003");
 		String reqData = para;//req.toString();
 		String respData = GetResponseDataByID(SshInfo.engUrl,reqData);//"http://192.168.1.105:8080/remotedesktop/RemoteDesktopControl"
-		//String ret = jsontoXml(respData);
-		//System.out.println("----respData----");
 		return respData;
 	}
 	
@@ -63,10 +62,11 @@ public class PpnEngBusiness extends BaseBusiness
 	 * @param devCode
 	 * @return
 	 */
-	public String getDevInfo(String devCode){
+	public String getDevInfo(String devCode, String reqId){
 		String process = "";
 		JSONObject req = new JSONObject();
-		req.accumulate("requestId", String.valueOf((++index)%254));
+		//req.accumulate("requestId", String.valueOf((++index)%254));
+		req.accumulate("requestId", reqId);
 		req.accumulate("id", devCode);
 		req.accumulate("CtlCode", "00101");
 		req.accumulate("address", "127.0.0.1");
@@ -75,48 +75,23 @@ public class PpnEngBusiness extends BaseBusiness
 		process = GetResponseDataByID(SshInfo.engUrl,reqData);
 		return process;
 	}
-	public String getDevInfo1(String devCode){
-		String process = "";
-		Jedis jedis = new Jedis(redisIp,redisPort);
-		jedis.auth(redisPassword);
-		
-		jedis.select(0);//心跳
-		process = jedis.get("USER:"+devCode);
-		System.out.println("----------------------------process:"+process);
-		return process;
-	}
 	
 	/**
 	 * 获取定位信息
 	 * @param devCode
 	 * @return
 	 */
-	public String getGpsInfo(String devCode){
+	public String getGpsInfo(String devCode, String reqId){
 		String gpsVal = "";
 		JSONObject req = new JSONObject();
-		req.accumulate("requestId", String.valueOf((++index)%254));
+		//req.accumulate("requestId", String.valueOf((++index)%254));
+		req.accumulate("requestId", reqId);
 		req.accumulate("id", devCode);
 		req.accumulate("CtlCode", "00102");
 		req.accumulate("address", "127.0.0.1");
 		req.accumulate("port", "9528");
 		String reqData = req.toString();
 		gpsVal = GetResponseDataByID(SshInfo.engUrl,reqData);
-		return gpsVal;
-	}
-	public String getGpsInfo1(String devCode){
-		String gpsVal = "";
-		Jedis jedis = new Jedis(redisIp,redisPort);
-		jedis.auth(redisPassword);
-		
-		jedis.select(2);//心跳
-		String baiduVal = jedis.get("USER:"+devCode);
-		if("0,0".equals(baiduVal)){
-			gpsVal = "116.471,39.921";
-		}else{
-			String[] baiduGps = baiduVal.split(",");
-			gpsVal = coordChange(baiduGps[0],baiduGps[1]);
-		}
-		System.out.println("----------------------------gps:"+gpsVal);
 		return gpsVal;
 	}
 	
@@ -138,16 +113,21 @@ public class PpnEngBusiness extends BaseBusiness
 		String code = AuthenticationCodeCreator.getShortCode(start,days);
 		return code + devCode.toUpperCase();
 	}
-	
+
     public static String GetResponseDataByID(String url, String postData) {
         String ret = null;
         try {
             URL dataUrl = new URL(url);
             HttpURLConnection con = (HttpURLConnection) dataUrl.openConnection();
             con.setRequestMethod("POST");
-            con.setRequestProperty("Proxy-Connection", "Keep-Alive");
+            con.setRequestProperty("Connection", "Keep-Alive");
+            con.setUseCaches(false);
+            con.setReadTimeout(TIME_OUT);
+            con.setReadTimeout(TIME_OUT);
             con.setDoOutput(true);
             con.setDoInput(true);
+            
+            con.connect();
             
             OutputStream os = con.getOutputStream();
             DataOutputStream dos = new DataOutputStream(os);
@@ -155,12 +135,27 @@ public class PpnEngBusiness extends BaseBusiness
             dos.flush();
             dos.close();
             
-            InputStream is = con.getInputStream();
-            DataInputStream dis = new DataInputStream(is);
-            byte d[] = new byte[dis.available()];
-            dis.read(d);
-            ret = new String(d);
-            con.disconnect();
+            if(con.getResponseCode()==HttpURLConnection.HTTP_OK){
+                //InputStream is = con.getInputStream();
+                //DataInputStream dis = new DataInputStream(is);
+                //byte d[] = new byte[is.available()];
+                //is.read(d);
+                //ret = new String(d);
+            	StringBuffer bankXmlBuffer=new StringBuffer();
+                BufferedReader in=new BufferedReader(new InputStreamReader(con.getInputStream()));
+        		String inputLine;
+        		while((inputLine=in.readLine())!=null){
+        			bankXmlBuffer.append(inputLine);
+        		}
+        		in.close();
+                ret = bankXmlBuffer.toString();
+            }else{
+            	ret = "{\"s\":4,\"w\":0,\"h\":0}";
+            }
+            
+            if(null!=con){
+            	con.disconnect();
+            }
         } catch (Exception ex) {
         	ex.getStackTrace();
         }
@@ -275,29 +270,10 @@ public class PpnEngBusiness extends BaseBusiness
     
     public static void main(String[] args) {
 		try {
-			//String aa = new PpnEngBusiness().getGpsInfo("188");
-			//System.out.println(aa);
-			
-			//String aa = PpnEngBusiness.decodeBase64("MjIuNTY2ODY0NjY0MjA0");
-			//System.out.println(aa);
-			
-			//JSONObject aa = PpnEngBusiness.httpRequest("http://api.map.baidu.com/ag/coord/convert?from=3&to=4&x=12685644&y=2562485","GET",null);
-			//System.out.println(aa.toString());
-			
-			/*
-			req.accumulate("requestId", "188");
-			req.accumulate("address", "101.129.6.54");
-			req.accumulate("port", "45743");
-			
-			req.accumulate("requestId", "168");
-			req.accumulate("address", "101.129.6.182");
-			req.accumulate("port", "40951");
-			*/
-			
 			JSONObject req = new JSONObject();
 			req.accumulate("requestId", "1");
-			req.accumulate("id", "185");
-			req.accumulate("CtlCode", "00010");
+			req.accumulate("id", "188");
+			req.accumulate("CtlCode", "00101");
 			req.accumulate("address", "127.0.0.1");
 			req.accumulate("port", "9528");
 			req.accumulate("lock", "0");
