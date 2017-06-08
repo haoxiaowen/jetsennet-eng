@@ -292,6 +292,7 @@ function showUserInfo ()
 		//getData();
 		var params = new HashMap();
 	    params.put("devCode", obj_ass_uid);
+	    params.put("reqId", getRequestId());
 	    ENGDAO.execute("getDevInfo", params, 
 	    	 {success : function(resultVal) {
 	    		 if(resultVal == ""){
