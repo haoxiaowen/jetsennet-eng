@@ -315,6 +315,11 @@ function showUserInfo ()
 	 					params.put("para", JSON.stringify(comd));
 	 					ENGDAO.execute("executeCommand", params, 
 	 							{success : function(resultVal) {
+	 								if(!resultVal){
+	 									jetsennet.error("网络超时!");
+	 									updateStatus(4);
+	 									return;
+	 								}
 	 								var retObj = eval("(" + resultVal + ")");
 	 								var status = retObj.s;
 	 								//alert(status);
@@ -322,7 +327,7 @@ function showUserInfo ()
 	 									jetsennet.alert("操作成功!");
 	 									updateStatus(3);
 	 								}else{
-	 									jetsennet.error("锁定网络超时!");
+	 									jetsennet.error("指令发送失败!");
 	 									updateStatus(4);
 	 								}
 	 							},
@@ -342,13 +347,18 @@ function showUserInfo ()
 	 					    params.put("para", JSON.stringify(comd));
 	 					    ENGDAO.execute("executeCommand", params, 
 	 							{success : function(resultVal) {
+	 								if(!resultVal){
+	 									jetsennet.error("网络超时!");
+	 									updateStatus(4);
+	 									return;
+	 								}
 	 								var retObj = eval("(" + resultVal + ")");
 	 									var status = retObj.s;
 	 									//alert(status);
 	 									if(status==0){
 	 										logout();
 	 									}else{
-	 										jetsennet.error("切换用户网络超时!");
+	 										jetsennet.error("指令发送失败!");
 	 										updateStatus(4);
 	 									}
 	 							 },
@@ -364,13 +374,18 @@ function showUserInfo ()
 	 					params.put("para", JSON.stringify(comd));
 	 					ENGDAO.execute("executeCommand", params, 
 	 							{success : function(resultVal) {
+	 								if(!resultVal){
+	 									jetsennet.error("网络超时!");
+	 									updateStatus(4);
+	 									return;
+	 								}
 	 								var retObj = eval("(" + resultVal + ")");
 	 								var status = retObj.s;
 	 								//alert(status);
 	 								if(status==0){
 	 									logout();
 	 								}else{
-	 									jetsennet.error("网络超时!");
+	 									jetsennet.error("指令发送失败!");
 	 									updateStatus(4);
 	 								}
 	 							},
@@ -385,6 +400,11 @@ function showUserInfo ()
 	 				    params.put("para", JSON.stringify(comd));
 	 				    ENGDAO.execute("executeCommand", params, 
 	 						{success : function(resultVal) {
+	 							if(!resultVal){
+ 									jetsennet.error("网络超时!");
+ 									updateStatus(4);
+ 									return;
+ 								}
 	 							var retObj = eval("(" + resultVal + ")");
  								var status = retObj.s;
  								//alert(status);
@@ -392,7 +412,7 @@ function showUserInfo ()
  									jetsennet.alert("操作成功!");
  									updateStatus(3);
  								}else{
- 									jetsennet.error("锁定网络超时!");
+ 									jetsennet.error("指令发送失败!");
  									updateStatus(4);
  								}
 	 						 },
@@ -409,6 +429,11 @@ function showUserInfo ()
 	 					    params.put("para", JSON.stringify(comd));
 	 					    ENGDAO.execute("executeCommand", params, 
 	 							{success : function(resultVal) {
+	 								if(!resultVal){
+	 									jetsennet.error("网络超时!");
+	 									updateStatus(4);
+	 									return;
+	 								}
 	 								var retObj = eval("(" + resultVal + ")");
 	 								var status = retObj.s;
 	 								//alert(status);
@@ -416,7 +441,7 @@ function showUserInfo ()
 	 									jetsennet.alert("操作成功!");
 	 									updateStatus(3);
 	 								}else{
-	 									jetsennet.error("网络超时!");
+	 									jetsennet.error("指令发送失败!");
 	 									updateStatus(4);
 	 								}
 	 							 },
@@ -472,6 +497,7 @@ function showUserInfo ()
 		//12965679,4826761
 		var params = new HashMap();
 	    params.put("devCode", assignId);
+	    params.put("reqId", getRequestId());
 	    ENGDAO.execute("getGpsInfo", params, 
 	    	 {success : function(resultVal) {
 	    		 if(resultVal){

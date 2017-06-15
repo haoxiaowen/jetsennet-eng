@@ -182,6 +182,7 @@ function setOption(){
 function getData(){
 	var params = new HashMap();
     params.put("devCode", assignIds);
+    params.put("reqId", 1);
     ENGDAO.execute("getDevInfo", params, 
     	 {success : function(resultVal) {
     		 if(resultVal){

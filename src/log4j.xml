@@ -26,7 +26,7 @@
 		</layout>
 		<filter class="org.apache.log4j.varia.LevelRangeFilter">
 			<param name="LevelMax" value="ERROR" />
-			<param name="LevelMin" value="TRACE" />
+			<param name="LevelMin" value="INFO" />
 		</filter>
 	</appender>
 
@@ -107,7 +107,7 @@
 	</category>
 
 	<root>
-		<priority value="DEBUG" />
+		<priority value="INFO" />
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="filelog_daily" />
 	</root>

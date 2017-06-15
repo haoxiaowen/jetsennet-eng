@@ -17,6 +17,7 @@ var port;
 function getData(){
 	var params = new HashMap();
     params.put("devCode", assignId);
+    params.put("reqId", 1);
     ENGDAO.execute("getDevInfo", params, 
     	 {success : function(resultVal) {
     		 if(resultVal){

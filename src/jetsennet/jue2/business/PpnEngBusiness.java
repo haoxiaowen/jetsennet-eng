@@ -1,7 +1,6 @@
 package jetsennet.jue2.business;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,8 +23,6 @@ import net.sf.json.xml.XMLSerializer;
 
 import org.apache.log4j.Logger;
 
-import redis.clients.jedis.Jedis;
-
 /**
  * 通用业务类
  * 
@@ -37,11 +34,7 @@ public class PpnEngBusiness extends BaseBusiness
 {
 	protected Logger logger = Logger.getLogger(PpnMsgBusiness.class);
 	private static SimpleDateFormat format = new  SimpleDateFormat("yyMMdd");
-	private String redisIp = SshInfo.redisIp;
-	private int redisPort = Integer.parseInt(SshInfo.redisPort);
-	private String redisPassword = SshInfo.redisPassword;
-	private static final int TIME_OUT = 10000;
-	private int index = 0;
+	private static final int TIME_OUT = 15000;
 	
 	/**
 	 * 调用命令
@@ -114,9 +107,10 @@ public class PpnEngBusiness extends BaseBusiness
 		return code + devCode.toUpperCase();
 	}
 
-    public static String GetResponseDataByID(String url, String postData) {
+    private String GetResponseDataByID(String url, String postData) {
         String ret = null;
         try {
+        	System.out.println("------------------request:"+postData);
             URL dataUrl = new URL(url);
             HttpURLConnection con = (HttpURLConnection) dataUrl.openConnection();
             con.setRequestMethod("POST");
@@ -150,12 +144,13 @@ public class PpnEngBusiness extends BaseBusiness
         		in.close();
                 ret = bankXmlBuffer.toString();
             }else{
-            	ret = "{\"s\":4,\"w\":0,\"h\":0}";
+            	ret = "";
             }
             
             if(null!=con){
             	con.disconnect();
             }
+            System.out.println("++++++++++++++++++response:"+ret);
         } catch (Exception ex) {
         	ex.getStackTrace();
         }
@@ -282,7 +277,7 @@ public class PpnEngBusiness extends BaseBusiness
 			String reqData = req.toString();
 			String url = "http://localhost:8080/remotedesktop/SyncRemoteDesktopControl";
 			//String url = "http://101.129.1.244:8083/remotedesktop/SyncRemoteDesktopControl";
-			String respData = GetResponseDataByID(url,reqData);//"http://192.168.1.105:8080/remotedesktop/RemoteDesktopControl"
+			String respData = new PpnEngBusiness().GetResponseDataByID(url,reqData);//"http://192.168.1.105:8080/remotedesktop/RemoteDesktopControl"
 			System.out.println("----respData----:"+respData);
 		} catch (Exception e) {
 			e.printStackTrace();
